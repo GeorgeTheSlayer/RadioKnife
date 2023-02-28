@@ -13,7 +13,7 @@ export const trpc = createTRPCProxyClient<AppRouter>({
       // in prod, we use the public domain
    url: dev
     ? 'http://localhost:5173/api/trpc'
-    : 'http://' + prodEndpoint + '/api/trpc',
+    : 'https://' + prodEndpoint + '/api/trpc',
   }),
  ],
 });

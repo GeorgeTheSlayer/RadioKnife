@@ -23,7 +23,7 @@
 		WebMidi.enable()
 			.then(onEnabled)
 			.catch((err) => alert(err));
-		const fullBodied: Synth = await (await trpc.getSynthById.query(ID!)).synths!;
+		const fullBodied: Synth = (await trpc.getSynthById.query(ID!)).synths!;
 		console.log(fullBodied);
 		const patcher: IPatcher = await JSON.parse(JSON.stringify(fullBodied.file));
 		title = fullBodied.title;
