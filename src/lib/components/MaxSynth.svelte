@@ -5,6 +5,7 @@
 	import Knob from './Knob.svelte';
 	import { WebMidi } from 'webmidi';
 	import type { Input } from 'postcss';
+	import type { Synth } from '@prisma/client';
 	export let ID: number | undefined;
 
 	//Various inputs
@@ -22,9 +23,10 @@
 		WebMidi.enable()
 			.then(onEnabled)
 			.catch((err) => alert(err));
-		const fullBodied = await trpc.getSynthById.query(ID!);
-		const patcher: IPatcher = JSON.parse(JSON.stringify(fullBodied.synths?.file))!;
-		title = fullBodied.synths?.title;
+		const fullBodied: Synth = await (await trpc.getSynthById.query(ID!)).synths!;
+		console.log(fullBodied);
+		const patcher: IPatcher = await JSON.parse(JSON.stringify(fullBodied.file));
+		title = fullBodied.title;
 
 		device = await createDevice({ context, patcher });
 
