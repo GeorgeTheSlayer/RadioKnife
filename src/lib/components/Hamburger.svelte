@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { fade } from 'svelte/transition';
-	export let flipped: boolean = false;
+	export let flipped = false;
 
 	function onClick() {
 		flipped = !flipped;
@@ -26,9 +26,9 @@
 	{/if}
 </button>
 
-<style lang="scss">
+<!-- <style lang="scss">
 	.stripped {
 		all: unset;
 		cursor: pointer;
 	}
-</style>
+</style> -->
