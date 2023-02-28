@@ -1,0 +1,9 @@
+
+* Two different Sites
+
+** ROOM
+Allows people to create a room that allows people to play synths together.
+Works almost like a laptop orchestra 
+
+** SHAMBLES
+Allows people to create a view synths. These synths can then be used in ROOM 
