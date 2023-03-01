@@ -26,4 +26,5 @@ export const customHandle: Handle = async ({ event, resolve }) => {
  return await resolve(event);
 };
 
-export const handle: Handle = sequence(handleHooks(auth), customHandle)
+// export const handle: Handle = sequence(handleHooks(auth), customHandle)
+export const handle: Handle = handleHooks(auth)

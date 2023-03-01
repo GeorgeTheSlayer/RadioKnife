@@ -24,35 +24,6 @@ export const appRouter = t.router({
         })
 	};
  }),
- createUser: publicProcedure.input(z.object({name: z.string(), username: z.string(), password: z.string()})).mutation(async (req) =>{
-    try {
-        const {name, username, password} = req.input;
-        await auth.createUser({
-            key: {
-                providerId: 'username',
-                providerUserId: username,
-                password: password
-            },
-            attributes: {
-                username,
-                name
-            },
-        })
-    } catch (error) {
-        console.error(error);
-        return fail(400, {message: 'Could not register User'});
-    }
-    throw redirect(302, '/');
- }),
- loginUser: publicProcedure.input(z.object({username: z.string(), password: z.string()})).query(async (req) =>{
-    const {username, password} = req.input;
-    try {
-        const key = await auth.validateKeyPassword("username", username, password);
-        const session = await auth.createSession(key.userId);
-    } catch (error) {
-        return error
-    }
- }),
  getAllSynthsByUser: publicProcedure.input(z.object({id: z.string()})).query(async (req) => {
     const {id} = req.input;
     try{
