@@ -1,8 +1,4 @@
 <script lang="ts">
-
 </script>
 
-
-<p>
-    This is just a test for the page.
-</p>
+<h1 class="text-center">Forum Page</h1>
