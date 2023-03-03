@@ -54,5 +54,10 @@
 		>
 			<a href="/synth/create" class="block text-center">Create</a>
 		</li>
+		<li
+			class=" w-full p-2 bg-mono-30 hover:bg-mono-10 hover:text-white  transition duration-500 ease-in-out"
+		>
+			<a href="/forum" class="block text-center">Forum</a>
+		</li>
 	</ul>
 {/if}

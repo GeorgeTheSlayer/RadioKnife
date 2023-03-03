@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+@layer base {
+    h1 {
+      @apply text-2xl;
+    }
+    h2 {
+      @apply text-xl;
+    }
+  }
+
+
+
+@layer components {
+.btn-base {
+    @apply bg-indigo-500 hover:bg-indigo-700 text-white font-bold mt-4 py-2 px-4 rounded;
+    }
+}

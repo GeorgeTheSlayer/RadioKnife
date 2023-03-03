@@ -18,6 +18,8 @@ model User {
   session  Session[]
   Key      Key[]
   Synths   Synth[]
+  Forum    Forum[]
+  FPost    FPost[]
 
   @@map("user")
 }
@@ -45,10 +47,37 @@ model Key {
 }
 
 model Synth {
-  id      Int    @id @default(autoincrement())
-  title   String @db.VarChar(255)
-  content String @db.VarChar(255)
+  id      Int     @id @default(autoincrement())
+  title   String  @db.VarChar(255)
+  content String  @db.VarChar(255)
   file    Json
   userId  String
-  User    User   @relation(fields: [userId], references: [id])
+  User    User    @relation(fields: [userId], references: [id])
+  FPost   FPost[]
+}
+
+model Forum {
+  id        Int      @id @default(autoincrement())
+  title     String   @db.VarChar(255)
+  content   String   @db.VarChar(255)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userId    String
+  User      User     @relation(fields: [userId], references: [id])
+  FPost     FPost[]
+}
+
+// Forum Posts
+// Can be implmented into synths or forums
+model FPost {
+  id        Int      @id @default(autoincrement())
+  content   String   @db.VarChar(255)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userId    String
+  User      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  forumId   Int?
+  Forum     Forum?   @relation(fields: [forumId], references: [id])
+  Synth     Synth?   @relation(fields: [synthId], references: [id])
+  synthId   Int?
 }

@@ -1,12 +1,4 @@
 <script lang="ts">
-	import { trpc } from '$lib/trpc/client';
-
-	// async function onSubmission() {
-	// 	console.log(usernameS);
-	// 	console.log(emailS);
-	// 	console.log(passwordS);
-	// 	await trpc.createUser.mutate({ name: usernameS, username: emailS, password: passwordS });
-	// }
 </script>
 
 <form method="POST">
@@ -24,6 +16,6 @@
 	<label for="password">Password</label>
 	<input type="password" id="password" name="password" required />
 
-	<button type="submit">Register</button>
+	<button type="submit" class="btn-base">Register</button>
 </form>
 <p>Already have an account? <a href="/login">Login</a></p>

@@ -23,12 +23,8 @@
 		</div>
 		<div class="mb-4">
 			<label class="block text-gray-700 text-sm font-bold mb-2" for="file">File</label>
-			<input type="file" name="file" />
+			<input type="file" name="file" id="file" />
 		</div>
-		<button
-			type="submit"
-			class="bg-mono-60 text-mono-10 hover:bg-mono-10 hover:text-mono-60 font-bold py-2 px-4 rounded"
-			>submit</button
-		>
+		<button type="submit" class="btn-base">submit</button>
 	</form>
 </div>

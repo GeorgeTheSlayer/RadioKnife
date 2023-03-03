@@ -24,9 +24,6 @@
 		/>
 	</div>
 
-	<button
-		class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold mt-4 py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-		type="submit">Login</button
-	>
+	<button class="btn-base mt-4" type="submit">Login</button>
 </form>
 <p>Don't have an account? <a href="/register" class=" text-indigo-600">Register</a></p>

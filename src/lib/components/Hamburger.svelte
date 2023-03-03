@@ -18,7 +18,7 @@
 	/>
 </svelte:head>
 
-<button class="stripped" class:flipped on:click={onClick}>
+<button class=" bg-transparent m-0 p-0" class:flipped on:click={onClick}>
 	{#if !flipped}
 		<span in:fade class="material-symbols-outlined"> menu </span>
 	{:else}
