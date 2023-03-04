@@ -1,14 +1,16 @@
 import type { RequestHandler } from '@sveltejs/kit';
 import { prisma } from '$lib/server/prisma';
-//import type { Synth } from "@prisma/client";
 
 export const GET = (async ({ url }) => {
 	const id = Number(url.searchParams.get('id'));
-	const specificSynth = await prisma.synth.findUnique({
+	const childComment = await prisma.comment.findUnique({
 		where: {
 			id: id
+		},
+		include: {
+			childComments: true
 		}
 	});
 
-	return new Response(JSON.stringify(specificSynth));
+	return new Response(JSON.stringify(childComment));
 }) satisfies RequestHandler;

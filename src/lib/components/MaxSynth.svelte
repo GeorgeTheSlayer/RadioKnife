@@ -1,10 +1,8 @@
 <script lang="ts">
 	import { beforeNavigate } from '$app/navigation';
-	import { trpc } from '$lib/trpc/client';
 	import { createDevice, type IPatcher, type Device } from '@rnbo/js';
 	import Knob from './Knob.svelte';
 	import { WebMidi } from 'webmidi';
-	import type { Input } from 'postcss';
 	import type { Synth } from '@prisma/client';
 	export let ID: number | undefined;
 

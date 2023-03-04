@@ -3,6 +3,6 @@ import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async () => {
 	return {
-		forums: await prisma.forum.findMany()
+		forums: await prisma.thread.findMany()
 	};
 };

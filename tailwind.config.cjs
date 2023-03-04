@@ -18,6 +18,12 @@ module.exports = {
       30: '#f2efea',
       10: '#3e3e41',
     },
+    'primary': {
+        b: '#14181B',
+        w: '#FFFFFF',
+        g: '#E8E8E8',
+
+    }
   },
     extend: {},
   },

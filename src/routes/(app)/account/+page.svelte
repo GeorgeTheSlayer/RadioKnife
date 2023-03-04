@@ -1,11 +1,8 @@
 <script lang="ts">
-	import { page } from '$app/stores';
-	import { trpc } from '$lib/trpc/client';
-	import { onMount } from 'svelte';
 	import Card from '$lib/components/Card.svelte';
 	import type { Synth } from '@prisma/client';
 	import { getUser } from '@lucia-auth/sveltekit/client';
-	import { goto } from '$app/navigation';
+	//import { goto } from '$app/navigation';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
