@@ -8,13 +8,13 @@
 	</hgroup>
 
 	<label for="name">Name</label>
-	<input type="text" id="name" name="name" required />
+	<input type="text" id="name" name="name" class="text-primary-b" required />
 
 	<label for="username">Username</label>
-	<input type="text" id="username" name="username" required />
+	<input type="text" id="username" name="username" class="text-primary-b" required />
 
 	<label for="password">Password</label>
-	<input type="password" id="password" name="password" required />
+	<input type="password" id="password" name="password" class="text-primary-b" required />
 
 	<button type="submit" class="btn-base">Register</button>
 </form>

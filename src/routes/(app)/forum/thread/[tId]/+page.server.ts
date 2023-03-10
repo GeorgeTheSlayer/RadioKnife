@@ -2,22 +2,33 @@ import { prisma } from '$lib/server/prisma';
 import type { PageServerLoad } from './$types';
 import type { Actions } from '@sveltejs/kit';
 import { redirect } from '@sveltejs/kit';
+import { z } from 'zod';
+
+const commentParser = z.object({
+	content: z.string().min(1).max(10000),
+	userId: z.string().min(1),
+	forumId: z.number().min(1).positive(),
+	parentId: z.number().min(1).positive().optional()
+});
 
 export const load = (async ({ params }) => {
 	const ID = Number(params.tId);
-	try {
-		const thread = await prisma.thread.findUnique({
+	const thread = async () => {
+		return await prisma.thread.findUnique({
 			where: {
 				id: ID
 			}
 		});
-		const posts = await prisma.comment.findMany({
-			where: { forumId: ID, parentId: null },
-			include: {
-				childComments: true
-			}
+	};
+	const posts = async () => {
+		return await prisma.comment.findMany({
+			where: { forumId: ID },
+			include: { childComments: true, User: true }
 		});
-		return { thread: thread, posts: posts } as const;
+	};
+
+	try {
+		return { thread: thread(), posts: posts() };
 	} catch (e) {
 		console.log(e);
 	}
@@ -30,11 +41,12 @@ export const actions: Actions = {
 		if (!session) {
 			throw redirect(302, '/login');
 		}
-		const userId = session!.userId;
+		const userId = session.userId;
 		const forumId = Number(params.tId);
 
 		const { content } = Object.fromEntries(await request.formData()) as { content: string };
 		try {
+			commentParser.parse({ content: content, userId: userId, forumId: forumId });
 			await prisma.comment.create({
 				data: { content: content, userId: userId, forumId: forumId },
 				include: { childComments: true }
@@ -55,13 +67,68 @@ export const actions: Actions = {
 			commentId: string;
 		};
 
-		const userId = session!.userId;
+		const userId = session.userId;
 		const forumId = Number(params.tId);
 		const parentId = Number(commentId);
 
 		try {
+			commentParser.parse({
+				content: replyContent,
+				userId: userId,
+				forumId: forumId,
+				parentId: parentId
+			});
 			await prisma.comment.create({
 				data: { content: replyContent, userId: userId, forumId: forumId, parentId: parentId }
+			});
+		} catch (e) {
+			console.log(e);
+		}
+	},
+	deleteComment: async ({ request, locals }) => {
+		const session = await locals.validate();
+		if (!session) {
+			throw redirect(302, '/login');
+		}
+
+		const { deleteCommentId, deleteCommentUserId } = Object.fromEntries(
+			await request.formData()
+		) as {
+			deleteCommentId: string;
+			deleteCommentUserId: string;
+		};
+
+		const commentId = Number(deleteCommentId);
+		try {
+			await prisma.comment.delete({
+				where: {
+					id: commentId
+				}
+			});
+		} catch (e) {
+			console.log(e);
+		}
+	},
+	editComment: async ({ request, locals }) => {
+		const session = await locals.validate();
+		if (!session) {
+			throw redirect(302, '/login');
+		}
+
+		const { editCommentId, editContent } = Object.fromEntries(await request.formData()) as {
+			editCommentId: string;
+			editContent: string;
+		};
+
+		const commentId = Number(editCommentId);
+		try {
+			await prisma.comment.update({
+				where: {
+					id: commentId
+				},
+				data: {
+					content: editContent
+				}
 			});
 		} catch (e) {
 			console.log(e);

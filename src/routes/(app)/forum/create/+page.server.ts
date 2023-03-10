@@ -24,7 +24,7 @@ export const actions: Actions = {
 			throw redirect(302, '/login');
 		}
 
-		const userId = session!.userId;
+		const userId = session?.userId;
 		const { title, content } = Object.fromEntries(formDataReq) as {
 			title: string;
 			content: string;

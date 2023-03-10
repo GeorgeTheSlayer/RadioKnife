@@ -3,24 +3,15 @@
 	import type { Synth } from '@prisma/client';
 	import { getUser } from '@lucia-auth/sveltekit/client';
 	//import { goto } from '$app/navigation';
-	import type { PageData } from './$types';
+	/** @type {import('./$types').PageData} */
+	export let data;
 
-	export let data: PageData;
+	//const user = getUser();
+	//const userId = $user?.userId;
 
-	const user = getUser();
-	const userId = $user?.userId;
-
-	const synthPosts: Synth[] = data.posts;
-	console.log(synthPosts);
-	let loaded = false;
-
-	// onMount(async () => {
-	// 	if (userId) {
-	// 		const value = await trpc.getAllSynthsByUser.query({ id: userId! });
-	// 		synthPosts = value.posts;
-	// 		loaded = true;
-	// 	} else goto('/');
-	// });
+	const synthPosts: Synth[] = data.posts as const;
+	//console.log(synthPosts);
+	//let loaded = false;
 </script>
 
 <h1 class="text-center">Account page</h1>
@@ -36,7 +27,7 @@
 <form
 	action="/logout"
 	method="post"
-	class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold mt-4 py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+	class="focus:shadow-outline mt-4 rounded bg-indigo-500 py-2 px-4 font-bold text-white hover:bg-indigo-700 focus:outline-none"
 >
 	<button> logout </button>
 </form>

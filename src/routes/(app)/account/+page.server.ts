@@ -1,21 +1,20 @@
-import { redirect } from "@sveltejs/kit";
-import type { PageServerLoad } from "./$types";
+import { redirect } from '@sveltejs/kit';
+import type { PageServerLoad } from './$types';
 
+export const load: PageServerLoad = async ({ locals }) => {
+	const { session, user } = await locals.validateUser();
 
+	if (!session) {
+		throw redirect(302, '/');
+	}
 
-export const load: PageServerLoad = async ({locals}) => {
-    const { session, user } = await locals.validateUser();
+	const posts = async () => {
+		return await prisma.synth.findMany({
+			where: {
+				userId: user.userId
+			}
+		});
+	};
 
-    if (!session) {
-        throw redirect(302, "/");
-    }
-
-    return{
-        posts: await prisma.synth.findMany({
-            where: {
-                userId: user.userId
-              }
-        })
-    }
-    
+	return { posts: posts() };
 };
