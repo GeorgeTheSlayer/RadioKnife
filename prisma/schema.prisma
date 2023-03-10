@@ -18,8 +18,8 @@ model User {
   session  Session[]
   Key      Key[]
   Synths   Synth[]
-  Forum    Forum[]
-  FPost    FPost[]
+  Forum    Thread[]
+  FPost    Comment[]
 
   @@map("user")
 }
@@ -53,31 +53,43 @@ model Synth {
   file    Json
   userId  String
   User    User    @relation(fields: [userId], references: [id])
-  FPost   FPost[]
+  Thread   Thread[]
 }
 
-model Forum {
+model Thread {
   id        Int      @id @default(autoincrement())
   title     String   @db.VarChar(255)
   content   String   @db.VarChar(255)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  userId    String
-  User      User     @relation(fields: [userId], references: [id])
-  FPost     FPost[]
+  votes     Int      @default(0)
+
+  userId String
+  User   User   @relation(fields: [userId], references: [id])
+
+  synthId Int?
+  Synth   Synth? @relation(fields: [synthId], references: [id])
+
+  Comment Comment[]
 }
 
 // Forum Posts
 // Can be implmented into synths or forums
-model FPost {
+model Comment {
   id        Int      @id @default(autoincrement())
   content   String   @db.VarChar(255)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  userId    String
-  User      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  forumId   Int?
-  Forum     Forum?   @relation(fields: [forumId], references: [id])
-  Synth     Synth?   @relation(fields: [synthId], references: [id])
-  synthId   Int?
+  votes     Int      @default(0)
+
+  userId String
+  User   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  forumId Int
+  Forum   Thread @relation(fields: [forumId], references: [id])
+
+  parentId      Int?
+  parent        Comment?  @relation("ChildComments", fields: [parentId], references: [id])
+  childComments Comment[] @relation("ChildComments")
 }
+

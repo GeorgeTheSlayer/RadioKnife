@@ -1,10 +1,8 @@
 <script lang="ts">
 	import { beforeNavigate } from '$app/navigation';
-	import { trpc } from '$lib/trpc/client';
 	import { createDevice, type IPatcher, type Device } from '@rnbo/js';
 	import Knob from './Knob.svelte';
 	import { WebMidi } from 'webmidi';
-	import type { Input } from 'postcss';
 	import type { Synth } from '@prisma/client';
 	export let ID: number | undefined;
 
@@ -15,7 +13,7 @@
 	let isSetup = false;
 	let title: string | undefined = '';
 	let Inputs: string[] = [];
-	let currentInput: string = '';
+	let currentInput = '';
 	let midiDevice;
 
 	const setup = async () => {
@@ -93,14 +91,14 @@
 </script>
 
 {#if isSetup}
-	<div class="p-8 bg-indigo-500 w-50%">
+	<div class="w-50% bg-indigo-500 p-8">
 		<h1 class=" text-center">{title}</h1>
 		<select name="midi" id="midi" bind:value={currentInput} on:change={setMidiDevice}>
 			{#each Inputs as input}
 				<option value={input}>{input}</option>
 			{/each}
 		</select>
-		<div class=" grid grid-cols-3 gap-4 justify-items-center">
+		<div class=" grid grid-cols-3 justify-items-center gap-4">
 			{#each device.parameters as pam}
 				{#if pam.type == 0}
 					<Knob min={pam.min} max={pam.max} name={pam.displayName} bind:value={pam.value} />
@@ -113,7 +111,7 @@
 {:else}
 	<div class="text-center">
 		<button
-			class="bg-indigo-500 hover:bg-indigo-700 text-white font-bold mt-4 py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+			class="focus:shadow-outline mt-4 rounded bg-indigo-500 py-2 px-4 font-bold text-white hover:bg-indigo-700 focus:outline-none"
 			on:click={setup}>Start the Sound</button
 		>
 	</div>

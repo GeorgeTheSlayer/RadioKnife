@@ -33,7 +33,7 @@
 	<ul transition:slide|local class="m-0 p-0 text-left flex flex-col justify-between  ">
 		{#if $user}
 			<li
-				class=" w-full p-2 bg-mono-30 hover:bg-mono-10 hover:text-white  transition duration-500 ease-in-out"
+				class=" w-full p-2 bg-primary-b hover:bg-primary-g hover:text-white  transition duration-500 ease-in-out"
 			>
 				<a href={'/account?id=' + userId} class="block text-center">{username}</a>
 			</li>
