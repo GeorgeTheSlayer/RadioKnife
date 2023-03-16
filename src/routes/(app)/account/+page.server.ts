@@ -9,7 +9,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 	}
 
 	const posts = async () => {
-		return await prisma.synth.findMany({
+		return prisma.synth.findMany({
 			where: {
 				userId: user.userId
 			}

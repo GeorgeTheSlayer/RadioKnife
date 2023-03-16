@@ -6,7 +6,7 @@
 	const link2 = 'https://source.unsplash.com/eCSL1ujUyD4';
 </script>
 
-<div class="max-w-sm rounded overflow-hidden shadow-lg">
+<div class="h-80 w-72 max-w-sm overflow-hidden rounded shadow-lg">
 	<a href={'/synth/view?id=' + cardSynth.id}>
 		<img src={link2} alt="Test" class="w-full" />
 		<h2>{cardSynth.title}</h2>
