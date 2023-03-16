@@ -3,12 +3,24 @@
 @tailwind utilities;
 
 
+
+
 @layer base {
+    html {
+        font-family: Helvetica, "Helvetica Neue", sans-serif;
+    }
+    p {
+        @apply text-base;
+        @apply tracking-wide;
+    }
+
     h1 {
-      @apply text-2xl;
+        @apply text-5xl;
+        @apply tracking-tight;
     }
     h2 {
-      @apply text-xl;
+        @apply text-xl;
+        @apply tracking-tight;
     }
   }
 

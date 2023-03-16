@@ -11,7 +11,7 @@ const commentParser = z.object({
 	parentId: z.number().min(1).positive().optional()
 });
 
-export const load = (async ({ params }) => {
+export const load: PageServerLoad = async ({ params }) => {
 	const ID = Number(params.tId);
 	const thread = async () => {
 		return await prisma.thread.findUnique({
@@ -32,7 +32,7 @@ export const load = (async ({ params }) => {
 	} catch (e) {
 		console.log(e);
 	}
-}) satisfies PageServerLoad;
+};
 
 export const actions: Actions = {
 	addComment: async ({ request, locals, params }) => {

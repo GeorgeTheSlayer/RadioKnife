@@ -1,7 +1,7 @@
 import type { RequestHandler } from '@sveltejs/kit';
 import { prisma } from '$lib/server/prisma';
 
-export const GET = (async ({ url }) => {
+export const GET: RequestHandler = async ({ url }) => {
 	const id = Number(url.searchParams.get('id'));
 	const childComment = await prisma.comment.findUnique({
 		where: {
@@ -13,4 +13,4 @@ export const GET = (async ({ url }) => {
 	});
 
 	return new Response(JSON.stringify(childComment));
-}) satisfies RequestHandler;
+};
