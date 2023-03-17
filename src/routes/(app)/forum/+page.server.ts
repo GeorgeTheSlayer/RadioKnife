@@ -9,7 +9,7 @@ export const load: PageServerLoad = async () => {
 	};
 
 	try {
-		return { forums: await forums() } as const;
+		return { forums: await prisma.thread.findMany() };
 	} catch (err) {
 		console.log(err);
 		throw error(500, 'Check the console');
