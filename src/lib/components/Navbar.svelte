@@ -113,8 +113,8 @@
 		</div>
 	{/if}
 	{#if isFlipped}
-		<div class=" w-full border-t-2 border-t-pastel-b md:hidden">
-			<ul transition:slide|local class="align-center flex flex-col text-left">
+		<div transition:slide|local class=" w-full border-t-2 border-t-pastel-b md:hidden">
+			<ul class="align-center flex flex-col text-left">
 				{#if $user}
 					<li class="hover:bg-pastel-p">
 						<a href={'/account?id=' + userId}><h1>Account</h1></a>
