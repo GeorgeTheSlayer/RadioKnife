@@ -9,7 +9,7 @@
 	const fullQuote = "'" + quoteObj.content.slice(0, -1) + "'" + ' - ' + quoteObj.author;
 </script>
 
-<body class="box-border w-screen">
+<body class="max-w-screen box-border w-screen">
 	<nav class="">
 		<Banner quoteBanner={fullQuote} />
 		<Navbar />

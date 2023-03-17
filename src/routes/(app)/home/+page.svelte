@@ -4,13 +4,13 @@
 	import Card from '$lib/components/Card.svelte';
 </script>
 
-<div class="mt-9 grid grid-cols-3">
-	<div class=" w-full ">
+<div class="mt-9 grid grid-cols-1 md:grid-cols-3 ">
+	<div class=" hidden w-full md:block ">
 		<div class=" border-b-2 border-pastel-b"><h2 class="font-bold">Filter</h2></div>
 	</div>
-	<div class="col-span-2 grid grid-cols-3 gap-14">
+	<div class=" flex flex-col items-center gap-14 md:col-span-2 md:grid md:grid-cols-3">
 		{#each data.synths as synth}
-			<div class="">
+			<div class="w-fit">
 				<Card cardSynth={synth} />
 			</div>
 		{/each}
