@@ -50,7 +50,7 @@
 	/>
 </svelte:head>
 
-<div class="block w-full border-b-2 border-b-black md:flex">
+<div class="block w-screen border-b-2 border-b-black md:flex">
 	<div class="max-w-1/3 hidden md:block md:w-1/3" />
 	<ul class="flex h-full w-full flex-nowrap items-center justify-evenly text-center">
 		<li class=" rounded hover:bg-pastel-p ">
