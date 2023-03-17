@@ -8,3 +8,7 @@
 		}
 	}
 </script>
+
+<svelte:head>
+	<title>RadioKnife Loading</title>
+</svelte:head>

@@ -1,6 +1,10 @@
 <script lang="ts">
 </script>
 
+<svelte:head>
+	<title>RadioKnife Register Page</title>
+</svelte:head>
+
 <form method="POST">
 	<hgroup>
 		<h2>Register</h2>

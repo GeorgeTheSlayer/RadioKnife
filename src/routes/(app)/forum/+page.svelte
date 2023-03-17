@@ -7,6 +7,10 @@
 	const forums: Thread[] = data.forums as const;
 </script>
 
+<svelte:head>
+	<title>RadioKnife Forums</title>
+</svelte:head>
+
 <h1 class="text-center">Forum Page</h1>
 
 <div class="text-center">

@@ -14,6 +14,10 @@
 	//let loaded = false;
 </script>
 
+<svelte:head>
+	<title>RadioKnife Account</title>
+</svelte:head>
+
 <h1 class="text-center">Account page</h1>
 
 <div class=" grid grid-cols-4">

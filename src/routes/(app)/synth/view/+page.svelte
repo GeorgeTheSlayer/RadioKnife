@@ -8,6 +8,10 @@
 	const synthId: number | undefined = Number(URL.searchParams.get('id'));
 </script>
 
+<svelte:head>
+	<title>{'RadioKnife Synth: ' + synthId}</title>
+</svelte:head>
+
 {#if synthId}
 	{#if browser}
 		<MaxSynth ID={synthId} />
