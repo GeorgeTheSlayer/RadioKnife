@@ -26,15 +26,21 @@
     /*Rules for sizing the icon. */
     .material-symbols-outlined.md-18 {
         font-size: 18px;
+        /*@apply leading-none;*/
+        /*@apply self-end;*/
     }
     .material-symbols-outlined.md-24 {
         font-size: 24px;
+        /*@apply self-end;*/
     }
     .material-symbols-outlined.md-36 {
         font-size: 36px;
+        /*@apply self-end;*/
+        /*@apply leading-none;*/
     }
     .material-symbols-outlined.md-48 {
         font-size: 48px;
+        /*@apply leading-tight;*/
     }
 
     /*Rules for using icons as black on a light background. */

@@ -50,15 +50,15 @@
 	/>
 </svelte:head>
 
-<div class="block w-screen border-b-2 border-b-black md:flex">
-	<div class="max-w-1/3 hidden md:block md:w-1/3" />
-	<ul class="flex h-full w-full flex-nowrap items-center justify-evenly text-center">
+<div class="block w-screen justify-evenly border-b-2 border-b-black md:flex">
+	<div class="max-w-1/3 hidden md:block md:w-1/6" />
+	<ul class="flex h-full w-full flex-nowrap items-center justify-evenly text-center md:w-2/3">
 		<li class=" rounded hover:bg-pastel-p ">
 			<button class="block md:hidden" on:click={flipSearch}>
 				{#if isSearch}
-					<span class="material-symbols-outlined md-48"> close </span>
+					<span class="material-symbols-outlined md-36"> close </span>
 				{:else}
-					<span class="material-symbols-outlined md-48"> search </span>
+					<span class="material-symbols-outlined md-36"> search </span>
 				{/if}
 			</button>
 			<a class="hidden md:block" href="/docs"><h2>Learn</h2></a>
@@ -69,9 +69,9 @@
 		<li class="rounded hover:bg-pastel-p">
 			<button class="block md:hidden" on:click={flipper}>
 				{#if isFlipped}
-					<span class="material-symbols-outlined md-48"> close </span>
+					<span class="material-symbols-outlined md-36"> close </span>
 				{:else}
-					<span class="material-symbols-outlined md-48"> menu </span>
+					<span class="material-symbols-outlined md-36"> menu </span>
 				{/if}
 			</button>
 			<a class="hidden md:block" href="/synth/create"><h2>Create</h2></a>
@@ -82,34 +82,34 @@
 			{#if isSearch}
 				<div transition:slide|local class="flex h-full w-full border-4 border-black text-primary-b">
 					<input type="search" name="searchBar" id="searchBar" />
-					<span class="material-symbols-outlined md-48"> search </span>
+					<span class="material-symbols-outlined md-36"> search </span>
 				</div>
 			{/if}
 			<button on:click={flipSearch}>
 				{#if isSearch}
-					<span class="material-symbols-outlined md-48"> close </span>
+					<span class="material-symbols-outlined md-36"> close </span>
 				{:else}
-					<span class="material-symbols-outlined md-48"> search </span>
+					<span class="material-symbols-outlined md-36"> search </span>
 				{/if}
 			</button>
 		</li>
 		<li class=" rounded hover:bg-pastel-p">
-			<a href="/forum" class=""><span class="material-symbols-outlined md-48"> forum </span></a>
+			<a href="/forum" class=""><span class="material-symbols-outlined md-36"> forum </span></a>
 		</li>
 		<li class=" rounded hover:bg-pastel-p">
 			{#if $user}
 				<a href={'/account?id=' + userId}
-					><span class="material-symbols-outlined md-48"> account_circle </span></a
+					><span class="material-symbols-outlined md-36"> account_circle </span></a
 				>
 			{:else}
-				<a href="/login"><span class="material-symbols-outlined md-48"> login </span></a>
+				<a href="/login"><span class="material-symbols-outlined md-36"> login </span></a>
 			{/if}
 		</li>
 	</ul>
 	{#if isSearch}
 		<div transition:slide|local class="flex w-full border-2 border-black text-primary-b md:hidden">
 			<input class="w-full" type="search" name="searchBar" id="searchBarMobile" />
-			<span class="material-symbols-outlined md-48"> search </span>
+			<span class="material-symbols-outlined md-36"> search </span>
 		</div>
 	{/if}
 	{#if isFlipped}
