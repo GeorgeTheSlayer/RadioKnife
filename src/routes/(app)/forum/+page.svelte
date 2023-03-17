@@ -8,7 +8,7 @@
 </script>
 
 <svelte:head>
-	<title>RadioKnife Forums</title>
+	<title>Forums | RadioKnife</title>
 </svelte:head>
 
 <h1 class="text-center">Forum Page</h1>

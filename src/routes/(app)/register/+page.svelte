@@ -2,7 +2,7 @@
 </script>
 
 <svelte:head>
-	<title>RadioKnife Register Page</title>
+	<title>Register | RadioKnife</title>
 </svelte:head>
 
 <form method="POST">

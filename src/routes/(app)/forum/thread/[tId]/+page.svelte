@@ -18,6 +18,10 @@
 	let editorAdd = '';
 </script>
 
+<svelte:head>
+	<title>{threads.title + ' | RadioKnife'}</title>
+</svelte:head>
+
 <div class="w-fit break-normal">
 	<h1>{threads.title}</h1>
 	<p>{threads.content}</p>

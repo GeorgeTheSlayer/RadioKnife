@@ -1,5 +1,5 @@
 <svelte:head>
-	<title>RadioKnife Create Synth</title>
+	<title>Create | RadioKnife</title>
 </svelte:head>
 
 <div class="w-full max-w-xs">

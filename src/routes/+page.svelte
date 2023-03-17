@@ -10,5 +10,5 @@
 </script>
 
 <svelte:head>
-	<title>RadioKnife Loading</title>
+	<title>Loading | RadioKnife</title>
 </svelte:head>

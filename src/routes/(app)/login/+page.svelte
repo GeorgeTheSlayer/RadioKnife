@@ -1,5 +1,5 @@
 <svelte:head>
-	<title>RadioKnife Login Page</title>
+	<title>Login | RadioKnife</title>
 </svelte:head>
 
 <form class="flex h-full w-full flex-col  border-pastel-b" method="POST">

@@ -15,7 +15,7 @@
 </script>
 
 <svelte:head>
-	<title>RadioKnife Account</title>
+	<title>Account | RadioKnife</title>
 </svelte:head>
 
 <h1 class="text-center">Account page</h1>

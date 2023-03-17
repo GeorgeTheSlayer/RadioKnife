@@ -1,5 +1,5 @@
 <h1>Coming Soon</h1>
 
 <svelte:head>
-	<title>RadioKnife Documentation</title>
+	<title>Docs | RadioKnife</title>
 </svelte:head>

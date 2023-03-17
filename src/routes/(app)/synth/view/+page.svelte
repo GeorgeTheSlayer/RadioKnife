@@ -9,7 +9,7 @@
 </script>
 
 <svelte:head>
-	<title>{'RadioKnife Synth: ' + synthId}</title>
+	<title>{synthId + ' | RadioKnife'}</title>
 </svelte:head>
 
 {#if synthId}
