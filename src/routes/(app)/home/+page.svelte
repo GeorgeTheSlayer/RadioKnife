@@ -4,6 +4,10 @@
 	import Card from '$lib/components/Card.svelte';
 </script>
 
+<svelte:head>
+	<title>RadioKnife</title>
+</svelte:head>
+
 <div class="mt-9 grid grid-cols-1 md:grid-cols-3 ">
 	<div class=" hidden w-full md:block ">
 		<div class=" border-b-2 border-pastel-b"><h2 class="font-bold">Filter</h2></div>
