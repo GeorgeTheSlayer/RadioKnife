@@ -20,6 +20,7 @@ model User {
   Synths   Synth[]
   Forum    Thread[]
   FPost    Comment[]
+  CommentLike CommentLike[]
 
   @@map("user")
 }
@@ -91,5 +92,19 @@ model Comment {
   parentId      Int?
   parent        Comment?  @relation("ChildComments", fields: [parentId], references: [id])
   childComments Comment[] @relation("ChildComments")
+  CommentLike   CommentLike[]
 }
 
+model CommentLike {
+  id        Int      @id @default(autoincrement())
+  like      Boolean  @default(false)
+
+  userId String
+  User   User   @relation(fields: [userId], references: [id])
+
+  commentId Int
+  Comment   Comment @relation(fields: [commentId], references: [id])
+
+  @@unique([userId, commentId])
+  //@@check(max(1, count(userId, CommentLike.userId)))
+}

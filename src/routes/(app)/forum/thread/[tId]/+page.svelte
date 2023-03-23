@@ -4,6 +4,7 @@
 	import type { Comment, Thread } from '@prisma/client';
 	import { enhance } from '$app/forms';
 	import { CommentTree } from '$lib/scripts/CommentTree';
+	import Editor from '@tinymce/tinymce-svelte';
 	/** @type {import('./$types').PageData} */
 	export let data;
 
@@ -12,7 +13,6 @@
 	const commentGraph = CommentTree.buildCommentGraph(allComments);
 
 	const threads: Thread = data.thread as const;
-	import Editor from '@tinymce/tinymce-svelte';
 
 	let apiKey = 'ama8nrb3pwnvsiap1exjga2ja1aktl54cmbr8ose8spgeh2m';
 	let editorAdd = '';
@@ -26,7 +26,7 @@
 	<h1>{threads.title}</h1>
 	<p>{threads.content}</p>
 
-	<div class="mt-4 bg-primary-b">
+	<div class="mt-4 ">
 		{#each commentGraph as posts}
 			<div class="ml-{(posts.level * 10).toString()} mt-4">
 				<CommentCard comment={posts.masterComment} tab={posts.level * 2} />
