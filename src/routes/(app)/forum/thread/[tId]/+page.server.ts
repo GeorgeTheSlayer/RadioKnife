@@ -23,7 +23,7 @@ export const load: PageServerLoad = async ({ params }) => {
 	const posts = async () => {
 		return await prisma.comment.findMany({
 			where: { forumId: ID },
-			include: { childComments: true, User: true }
+			include: { childComments: true, User: true, CommentLike: true }
 		});
 	};
 

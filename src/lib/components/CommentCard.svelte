@@ -1,30 +1,44 @@
 <script lang="ts">
-	import type { Comment, User } from '@prisma/client';
+	import type { Comment, User, CommentLike } from '@prisma/client';
 	//import CommentCard from './CommentCard.svelte';
 	import { slide } from 'svelte/transition';
 	import { getUser } from '@lucia-auth/sveltekit/client';
 	import Editor from '@tinymce/tinymce-svelte';
-
+	//import type { likeRequest } from '../interfaces';
+	import { trpc } from '$lib/trpc/client';
+	import { page } from '$app/stores';
+	import * as dayjs from 'dayjs';
+	import relativeTime from 'dayjs/plugin/relativeTime';
+	import { browser } from '$app/environment';
+	import Icon from '@iconify/svelte';
 	/** @type {import('@prisma/client').Comment} */
 
 	interface exComment extends Comment {
 		childComments: Comment[];
+		CommentLike: CommentLike[];
 		User: User;
 	}
 
 	let apiKey = 'ama8nrb3pwnvsiap1exjga2ja1aktl54cmbr8ose8spgeh2m';
 	export let comment: exComment;
-	export let upVote = false;
-	export let downVote = false;
+	let likeNum = 0;
 	export let tab = 0;
 	let isReply = false;
 	let isEdit = false;
 	let hasChildren = true;
 	let showChildren = true;
 	let isUser = false;
+	let colorThumb: boolean | undefined = false;
+
+	let time = '';
+	if (browser) {
+		const date = comment.updatedAt;
+		dayjs.extend(relativeTime);
+		time = dayjs(date).fromNow();
+	}
 
 	const user = getUser();
-	const userId = $user?.userId;
+	const userId: string = $user?.userId;
 
 	function toggleChildren() {
 		showChildren = !showChildren;
@@ -36,13 +50,6 @@
 
 	function clickSubmitReply() {
 		isReply = !isReply;
-	}
-	export function clickUp() {
-		upVote = true;
-	}
-
-	export function clickDown() {
-		downVote = false;
 	}
 
 	function clickEdit() {
@@ -56,12 +63,71 @@
 		}
 	};
 
+	let likeObjs = comment.CommentLike;
+
+	const refreshClientLikes = (arr: CommentLike[]) => {
+		likeNum = 0;
+		// console.log(likeObjs);
+		if (arr.length == 0) {
+			colorThumb = undefined;
+			return;
+		}
+		arr.forEach((like) => {
+			if (like.like) {
+				likeNum++;
+			} else {
+				likeNum--;
+			}
+			if (like.userId == userId) {
+				colorThumb = like.like;
+			} else {
+				colorThumb = undefined;
+			}
+		});
+	};
+	refreshClientLikes(likeObjs);
+
+	async function addVote(value: boolean) {
+		if (user) {
+			const found = likeObjs.find((like) => like.userId == userId);
+
+			let result;
+			const likeVal = found?.like;
+			if (found && likeVal == value) {
+				await trpc($page).deleteVoteComment.mutate({
+					likeId: found.id
+				});
+			} else {
+				await trpc($page).voteComment.mutate({
+					commentId: comment.id,
+					userId: userId,
+					like: value
+				});
+			}
+
+			const newLikes = await trpc($page).getCommentLikes.query({
+				commentId: comment.id
+			});
+			likeObjs = newLikes.likes;
+			refreshClientLikes(likeObjs);
+		}
+	}
+
+	async function pullLikes() {
+		const newLikes = await trpc($page).getCommentLikes.query({
+			commentId: comment.id
+		});
+		likeObjs = newLikes.likes;
+		refreshClientLikes(likeObjs);
+	}
+
+	//comment.childComments.;
+
 	getUserName();
 	//const subComments: Promise<Comment[]> = getChildren();
 	let editorReply = '';
 	let editorEdit = comment.content;
 	const tabVal = (tab * 5).toString();
-	console.log(tabVal);
 </script>
 
 <svelte:head>
@@ -95,13 +161,27 @@
 		rel="stylesheet"
 		href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
 	/>
+
+	<link
+		rel="stylesheet"
+		href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+	/>
+	<link
+		rel="stylesheet"
+		href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+	/>
 </svelte:head>
 
 <div
 	transition:slide|local
-	class=" w-full border-4 border-transparent border-t-primary-g text-primary-w"
+	class=" w-full border-4 border-transparent border-t-primary-g bg-pastel-w text-primary-b"
 >
-	<a href={'/account?id=' + comment.userId}>{comment.User.name}</a>
+	<div class="flex justify-between">
+		<a href={'/account?id=' + comment.userId}
+			><p class="font-bold leading-tight">{comment.User.name}</p></a
+		>
+		<p>{time}</p>
+	</div>
 	<div class=" flex items-start">
 		{#if hasChildren}
 			<button on:click={toggleChildren}>
@@ -119,25 +199,62 @@
 				{@html comment.content}
 			</div>
 			<div class="flex text-center align-middle">
-				<div class="flex">
-					<button on:click={clickUp} class="mr-1">
-						<span class="material-symbols-outlined"> arrow_upward </span>
+				<div class="flex justify-evenly">
+					<button
+						on:click={() => addVote(true)}
+						class="mr-1 align-top text-2xl text-pastel-{colorThumb === true
+							? 'p'
+							: 'b'} hover:text-pastel-p"
+					>
+						{#if colorThumb === true}
+							<!--thumb up Outline-->
+							<Icon icon="material-symbols:thumb-up-rounded" />
+						{:else}
+							<!--thumb up solid-->
+							<Icon icon="material-symbols:thumb-up-outline" />
+						{/if}
 					</button>
-					<p class="mr-1">{comment.votes}</p>
-					<button on:click={clickDown} class="mr-1">
-						<span class="material-symbols-outlined"> arrow_downward </span>
+					<p class="mr-1">{likeNum}</p>
+					<button
+						on:click={() => addVote(false)}
+						class="mr-1 text-2xl text-pastel-{colorThumb === false
+							? 'p'
+							: 'b'}  hover:text-pastel-p"
+					>
+						{#if colorThumb === false}
+							<!--thumb up solid-->
+							<Icon icon="material-symbols:thumb-down-rounded" />
+						{:else}
+							<!--thumb up Outline-->
+							<Icon icon="material-symbols:thumb-down-outline" />
+						{/if}
 					</button>
 				</div>
-				<div class="rounded hover:bg-gray-700">
-					<button class="flex items-start border-black text-center" on:click={clickSubmitReply}>
-						<span class="material-symbols-outlined"> reply </span>
+				<div class="rounded hover:text-pastel-p">
+					<button class="flex items-start text-center" on:click={clickSubmitReply}>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							class="icon icon-tabler icon-tabler-message-circle-2"
+							width="24"
+							height="24"
+							viewBox="0 0 24 24"
+							stroke-width="2"
+							stroke="currentColor"
+							fill="none"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						>
+							<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+							<path d="M3 20l1.3 -3.9a9 8 0 1 1 3.4 2.9l-4.7 1" />
+						</svg>
+
 						Reply
 					</button>
 				</div>
 				{#if isUser}
 					<form action="?/deleteComment" id="delete" method="post">
-						<button type="submit">
-							<span class="material-symbols-outlined"> delete </span>
+						<button type="submit" class="text-2xl hover:text-pastel-p">
+							<Icon icon="material-symbols:delete-outline" />
 						</button>
 						<input type="hidden" name="deleteCommentId" id="deleteCommentId" value={comment.id} />
 						<input
@@ -147,8 +264,8 @@
 							value={userId}
 						/>
 					</form>
-					<button on:click={clickEdit} type="submit">
-						<span class="material-symbols-outlined"> edit </span>
+					<button on:click={clickEdit} type="submit" class="align-top text-2xl hover:text-pastel-p">
+						<Icon icon="material-symbols:edit" />
 					</button>
 				{/if}
 			</div>
