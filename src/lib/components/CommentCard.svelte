@@ -30,13 +30,6 @@
 	let isUser = false;
 	let colorThumb: boolean | undefined = false;
 
-	let time = '';
-	if (browser) {
-		const date = comment.updatedAt;
-		dayjs.extend(relativeTime);
-		time = dayjs(date).fromNow();
-	}
-
 	const user = getUser();
 	const userId: string = $user?.userId;
 
@@ -63,8 +56,6 @@
 		}
 	};
 
-	let likeObjs = comment.CommentLike;
-
 	const refreshClientLikes = (arr: CommentLike[]) => {
 		likeNum = 0;
 		// console.log(likeObjs);
@@ -85,7 +76,16 @@
 			}
 		});
 	};
-	refreshClientLikes(likeObjs);
+
+	let likeObjs: CommentLike[] = [];
+	let time = '';
+	if (browser) {
+		const date = comment.updatedAt;
+		dayjs.extend(relativeTime);
+		time = dayjs(date).fromNow();
+		likeObjs = comment.CommentLike;
+		refreshClientLikes(likeObjs);
+	}
 
 	async function addVote(value: boolean) {
 		if (user) {
