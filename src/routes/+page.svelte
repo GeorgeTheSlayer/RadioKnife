@@ -10,5 +10,5 @@
 </script>
 
 <svelte:head>
-	<title>Loading | RadioKnife</title>
+	<title>Radioknife: Learn how to make audio plugins</title>
 </svelte:head>
