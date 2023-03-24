@@ -90,7 +90,6 @@
 		if (user) {
 			const found = likeObjs.find((like) => like.userId == userId);
 
-			let result;
 			const likeVal = found?.like;
 			if (found && likeVal == value) {
 				await trpc($page).deleteVoteComment.mutate({
@@ -120,10 +119,7 @@
 		refreshClientLikes(likeObjs);
 	}
 
-	//comment.childComments.;
-
 	getUserName();
-	//const subComments: Promise<Comment[]> = getChildren();
 	let editorReply = '';
 	let editorEdit = comment.content;
 	const tabVal = (tab * 5).toString();

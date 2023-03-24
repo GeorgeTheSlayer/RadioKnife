@@ -34,14 +34,7 @@
 		{/each}
 	</div>
 
-	<form
-		class="mt-4"
-		action="?/addComment"
-		method="post"
-		id="upload"
-		enctype="multipart/form-data"
-		use:enhance
-	>
+	<form class="mt-4" action="?/addComment" method="post" id="upload" enctype="multipart/form-data">
 		<Editor {apiKey} bind:value={editorAdd} />
 		<input type="hidden" name="content" id="content" value={editorAdd} />
 		<button class="btn-base align-center">Submit</button>
