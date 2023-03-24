@@ -10,7 +10,6 @@
 	import * as dayjs from 'dayjs';
 	import relativeTime from 'dayjs/plugin/relativeTime';
 	import { browser } from '$app/environment';
-	import Icon from '@iconify/svelte';
 	/** @type {import('@prisma/client').Comment} */
 
 	interface exComment extends Comment {
@@ -29,13 +28,6 @@
 	let showChildren = true;
 	let isUser = false;
 	let colorThumb: boolean | undefined = false;
-
-	let time = '';
-	if (browser) {
-		const date = comment.updatedAt;
-		dayjs.extend(relativeTime);
-		time = dayjs(date).fromNow();
-	}
 
 	const user = getUser();
 	const userId: string = $user?.userId;
@@ -63,8 +55,6 @@
 		}
 	};
 
-	let likeObjs = comment.CommentLike;
-
 	const refreshClientLikes = (arr: CommentLike[]) => {
 		likeNum = 0;
 		// console.log(likeObjs);
@@ -85,13 +75,21 @@
 			}
 		});
 	};
-	refreshClientLikes(likeObjs);
+
+	let likeObjs: CommentLike[] = [];
+	let time = '';
+	if (browser) {
+		const date = comment.updatedAt;
+		dayjs.extend(relativeTime);
+		time = dayjs(date).fromNow();
+		likeObjs = comment.CommentLike;
+		refreshClientLikes(likeObjs);
+	}
 
 	async function addVote(value: boolean) {
 		if (user) {
 			const found = likeObjs.find((like) => like.userId == userId);
 
-			let result;
 			const likeVal = found?.like;
 			if (found && likeVal == value) {
 				await trpc($page).deleteVoteComment.mutate({
@@ -121,10 +119,7 @@
 		refreshClientLikes(likeObjs);
 	}
 
-	//comment.childComments.;
-
 	getUserName();
-	//const subComments: Promise<Comment[]> = getChildren();
 	let editorReply = '';
 	let editorEdit = comment.content;
 	const tabVal = (tab * 5).toString();
@@ -207,11 +202,45 @@
 							: 'b'} hover:text-pastel-p"
 					>
 						{#if colorThumb === true}
-							<!--thumb up Outline-->
-							<Icon icon="material-symbols:thumb-up-rounded" />
+							<!--thumb up Solid-->
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								class="icon icon-tabler icon-tabler-arrow-big-up-filled"
+								width="24"
+								height="24"
+								viewBox="0 0 24 24"
+								stroke-width="2"
+								stroke="currentColor"
+								fill="none"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							>
+								<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+								<path
+									d="M10.586 3l-6.586 6.586a2 2 0 0 0 -.434 2.18l.068 .145a2 2 0 0 0 1.78 1.089h2.586v7a2 2 0 0 0 2 2h4l.15 -.005a2 2 0 0 0 1.85 -1.995l-.001 -7h2.587a2 2 0 0 0 1.414 -3.414l-6.586 -6.586a2 2 0 0 0 -2.828 0z"
+									stroke-width="0"
+									fill="currentColor"
+								/>
+							</svg>
 						{:else}
-							<!--thumb up solid-->
-							<Icon icon="material-symbols:thumb-up-outline" />
+							<!--thumb up Outline-->
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								class="icon icon-tabler icon-tabler-arrow-big-up"
+								width="24"
+								height="24"
+								viewBox="0 0 24 24"
+								stroke-width="2"
+								stroke="currentColor"
+								fill="none"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							>
+								<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+								<path
+									d="M9 20v-8h-3.586a1 1 0 0 1 -.707 -1.707l6.586 -6.586a1 1 0 0 1 1.414 0l6.586 6.586a1 1 0 0 1 -.707 1.707h-3.586v8a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"
+								/>
+							</svg>
 						{/if}
 					</button>
 					<p class="mr-1">{likeNum}</p>
@@ -222,11 +251,45 @@
 							: 'b'}  hover:text-pastel-p"
 					>
 						{#if colorThumb === false}
-							<!--thumb up solid-->
-							<Icon icon="material-symbols:thumb-down-rounded" />
+							<!--thumb down solid-->
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								class="icon icon-tabler icon-tabler-arrow-big-down-filled"
+								width="24"
+								height="24"
+								viewBox="0 0 24 24"
+								stroke-width="2"
+								stroke="currentColor"
+								fill="none"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							>
+								<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+								<path
+									d="M10 2l-.15 .005a2 2 0 0 0 -1.85 1.995v6.999l-2.586 .001a2 2 0 0 0 -1.414 3.414l6.586 6.586a2 2 0 0 0 2.828 0l6.586 -6.586a2 2 0 0 0 .434 -2.18l-.068 -.145a2 2 0 0 0 -1.78 -1.089l-2.586 -.001v-6.999a2 2 0 0 0 -2 -2h-4z"
+									stroke-width="0"
+									fill="currentColor"
+								/>
+							</svg>
 						{:else}
-							<!--thumb up Outline-->
-							<Icon icon="material-symbols:thumb-down-outline" />
+							<!--thumb down Outline-->
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								class="icon icon-tabler icon-tabler-arrow-big-down"
+								width="24"
+								height="24"
+								viewBox="0 0 24 24"
+								stroke-width="2"
+								stroke="currentColor"
+								fill="none"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							>
+								<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+								<path
+									d="M15 4v8h3.586a1 1 0 0 1 .707 1.707l-6.586 6.586a1 1 0 0 1 -1.414 0l-6.586 -6.586a1 1 0 0 1 .707 -1.707h3.586v-8a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1z"
+								/>
+							</svg>
 						{/if}
 					</button>
 				</div>
@@ -252,9 +315,27 @@
 					</button>
 				</div>
 				{#if isUser}
-					<form action="?/deleteComment" id="delete" method="post">
+					<form action="?/deleteComment" id="delete" method="post" class="ml-auto flex">
 						<button type="submit" class="text-2xl hover:text-pastel-p">
-							<Icon icon="material-symbols:delete-outline" />
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								class="icon icon-tabler icon-tabler-trash"
+								width="24"
+								height="24"
+								viewBox="0 0 24 24"
+								stroke-width="2"
+								stroke="currentColor"
+								fill="none"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							>
+								<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+								<path d="M4 7l16 0" />
+								<path d="M10 11l0 6" />
+								<path d="M14 11l0 6" />
+								<path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+								<path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+							</svg>
 						</button>
 						<input type="hidden" name="deleteCommentId" id="deleteCommentId" value={comment.id} />
 						<input
@@ -264,8 +345,23 @@
 							value={userId}
 						/>
 					</form>
-					<button on:click={clickEdit} type="submit" class="align-top text-2xl hover:text-pastel-p">
-						<Icon icon="material-symbols:edit" />
+					<button on:click={clickEdit} type="submit" class="text-2xl hover:text-pastel-p">
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							class="icon icon-tabler icon-tabler-pencil"
+							width="24"
+							height="24"
+							viewBox="0 0 24 24"
+							stroke-width="2"
+							stroke="currentColor"
+							fill="none"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						>
+							<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+							<path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" />
+							<path d="M13.5 6.5l4 4" />
+						</svg>
 					</button>
 				{/if}
 			</div>
