@@ -19,7 +19,7 @@
 	let currentInput = '';
 	let midiDevice;
 
-	const setup = async () => {
+	export const setup = async () => {
 		//console.log(MAXPATCH);
 		// WebMidi.enable()
 		// 	.then(onEnabled)
@@ -93,8 +93,8 @@
 	});
 </script>
 
-{#if isSetup}
-	<div class="w-50% bg-indigo-500 p-8">
+<div class="h-full w-full border-2 border-pastel-b bg-pastel-p p-8">
+	{#if isSetup}
 		<h1 class=" text-center">{title}</h1>
 		<!--		<select name="midi" id="midi" bind:value={currentInput} on:change={setMidiDevice}>-->
 		<!--			{#each Inputs as input}-->
@@ -118,12 +118,12 @@
 				{/if}
 			{/each}
 		</div>
-	</div>
-{:else}
-	<div class="text-center">
-		<button
-			class="focus:shadow-outline mt-4 rounded bg-indigo-500 py-2 px-4 font-bold text-white hover:bg-indigo-700 focus:outline-none"
-			on:click={setup}>Start the Sound</button
-		>
-	</div>
-{/if}
+	{:else}
+		<div class="justify-center text-center">
+			<button
+				class="focus:shadow-outline mt-4 rounded bg-indigo-500 py-2 px-4 font-bold text-white hover:bg-indigo-700 focus:outline-none"
+				on:click={setup}>Start the Sound</button
+			>
+		</div>
+	{/if}
+</div>

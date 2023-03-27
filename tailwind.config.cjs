@@ -37,6 +37,8 @@ module.exports = {
             b: '#000000',
             g: '#4E4E4E',
             p: '#FF9E9E',
+            c: '#9e9eff',
+            y: '#ffff9e',
         }
   },
     extend: {},

@@ -9,12 +9,12 @@
 	const fullQuote = "'" + quoteObj.content.slice(0, -1) + "'" + ' - ' + quoteObj.author;
 </script>
 
-<body class="max-w-screen box-border w-screen">
-	<nav class="overflow-x-hidden">
+<body class="max-w-screen scrollbar-hide box-border w-screen overflow-x-hidden">
+	<nav>
 		<Banner quoteBanner={fullQuote} />
 		<Navbar />
 	</nav>
-	<main class="overflow-x-clip">
+	<main class="">
 		<slot />
 	</main>
 </body>
