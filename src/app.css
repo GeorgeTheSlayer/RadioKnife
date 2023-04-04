@@ -74,6 +74,6 @@
 
 @layer components {
 .btn-base {
-    @apply bg-indigo-500 hover:bg-indigo-700 text-white font-bold mt-4 py-2 px-4 rounded;
+    @apply bg-pastel-p hover:bg-pastel-c text-white font-bold mt-4 py-2 px-4 rounded;
     }
 }

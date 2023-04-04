@@ -7,7 +7,7 @@
 </script>
 
 <div class="h-full w-full overflow-hidden rounded shadow-lg">
-	<a href={'/synth/view?id=' + cardSynth.id}>
+	<a href={'/synth/view/' + cardSynth.id}>
 		<img src={link2} alt="Test" class="w-full" />
 		<h2>{cardSynth.title}</h2>
 		<p>{cardSynth.content}</p>
