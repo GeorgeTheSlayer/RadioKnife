@@ -21,6 +21,8 @@ model User {
   Forum    Thread[]
   FPost    Comment[]
   CommentLike CommentLike[]
+  SynthProfile SynthProfile[]
+  SynthProfileLike SynthProfileLike[]
 
   @@map("user")
 }
@@ -55,6 +57,47 @@ model Synth {
   userId  String
   User    User    @relation(fields: [userId], references: [id])
   Thread   Thread[]
+  SynthProfile SynthProfile[]
+
+}
+
+model SynthProfile {
+  id      Int     @id @default(autoincrement())
+  title   String  @db.VarChar(255)
+  content String  @db.VarChar(255)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ui      Json
+  userId  String
+  synthId Int
+  User    User    @relation(fields: [userId], references: [id])
+  Synth   Synth   @relation(fields: [synthId], references: [id])
+  SynthProfileLike SynthProfileLike[]
+  SynthProfileTags SynthProfileTags[]
+}
+
+model SynthProfileLike {
+  id        Int      @id @default(autoincrement())
+  like      Boolean  @default(false)
+
+  userId String
+  User   User   @relation(fields: [userId], references: [id])
+
+  synthProfileId Int
+  SynthProfile   SynthProfile @relation(fields: [synthProfileId], references: [id])
+
+  @@unique([userId, synthProfileId])
+  //@@check(max(1, count(userId, SynthProfileLike.userId)))
+}
+
+model SynthProfileTags {
+  id        Int      @id @default(autoincrement())
+  tag       String   @db.VarChar(255)
+
+  synthProfileId Int
+  SynthProfile   SynthProfile @relation(fields: [synthProfileId], references: [id])
+
+  @@unique([tag, synthProfileId])
 }
 
 model Thread {

@@ -2,32 +2,36 @@
 	<title>Login | RadioKnife</title>
 </svelte:head>
 
-<form class="flex h-full w-full flex-col  border-pastel-b" method="POST">
-	<div class="text-center">
-		<h1 class="text-bold">Login</h1>
-		<h3>Welcome back!</h3>
+<form
+	class="mx-auto mt-10 flex h-1/2 w-1/4 flex-col gap-1 border-4 border-pastel-b p-10 text-center"
+	method="POST"
+>
+	<div>
+		<h1 class="text-bold">Account Login</h1>
+		<p>Enter your Account Details here.</p>
 	</div>
-	<div class="mt-4">
-		<label for="username">Username</label>
+	<div class="mt-8">
+		<!--		<label for="username">Username</label>-->
 		<input
-			class="focus:shadow-outline w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow focus:outline-none"
+			class="w-full border-4 border-pastel-b py-2 px-3 leading-tight text-gray-700"
 			type="text"
 			id="username"
 			name="username"
+			placeholder="Username"
 			required
 		/>
 	</div>
 	<div class="mt-4">
-		<label for="password">Password</label>
 		<input
-			class="focus:shadow-outline w-full appearance-none rounded border py-2 px-3 leading-tight text-gray-700 shadow focus:outline-none"
+			class="w-full border-4 border-pastel-b py-2 px-3 leading-tight text-gray-700"
 			type="password"
 			id="password"
 			name="password"
+			placeholder="Password"
 			required
 		/>
 	</div>
 
 	<button class="btn-base mt-4" type="submit">Login</button>
-	<p>Don't have an account? <a href="/register" class=" text-indigo-600">Register</a></p>
+	<p>Don't have an account? <a href="/register" class=" text-pastel-c">Register</a></p>
 </form>

@@ -1,44 +1,56 @@
 <script lang="ts">
 	import MaxSynth from '$lib/components/MaxSynth.svelte';
-	import { browser } from '$app/environment';
+	// import { browser } from '$app/environment';
 	import { page } from '$app/stores';
 	import StarRating from '$lib/components/StarRating.svelte';
 	import Chevron from '$lib/components/Chevron.svelte';
-	import ViewEmote from '$lib/components/ViewEmote.svelte';
-	import { license } from '$lib/scripts/Strings';
+	// import ViewEmote from '$lib/components/ViewEmote.svelte';
+	// import { license } from '$lib/scripts/Strings';
+	import type { Synth } from '@prisma/client';
 	import type { PageData } from './$types';
 	import Card from '$lib/components/Card.svelte';
+	import { onMount } from 'svelte';
+	//import { json } from '@sveltejs/kit';
 
 	//Get Seach Params and show on browser
 	const URL = $page.url;
 	const synthId: number | undefined = Number(URL.searchParams.get('id'));
 
 	export let data: PageData;
+	const synthPatch: Synth = data.synth;
+	const synthTitle = synthPatch.title;
+	let synthPatcher = undefined;
+
+	onMount(async () => {
+		synthPatcher = await JSON.parse(JSON.stringify(synthPatch.file));
+	});
 
 	let isLiked = false;
-	let isLicense = false;
+	// let isLicense = false;
 	let isDescription = false;
 	let isDisscussion = true;
+	const testMode = false;
+	// let isMounted = false;
 </script>
 
 <svelte:head>
-	<title>{synthId + ' | RadioKnife'}</title>
+	<title>{synthTitle + ' | RadioKnife'}</title>
 </svelte:head>
 
 <div class="w-max-full mx-10 h-screen">
 	<div class=" min-h-4/6 mt-4 flex h-4/6 gap-x-2">
-		<div class="align-center flex-1 items-center justify-center bg-pastel-p">
-			{#if synthId}
-				{#if browser}
-					<MaxSynth ID={synthId} />
-				{/if}
+		<div class="align-center flex-1 items-center justify-center  bg-pastel-p">
+			{#if synthPatcher}
+				<MaxSynth patcher={synthPatcher} title={synthTitle} canEdit={testMode} />
 			{/if}
 		</div>
 		<div class="w-1/4 flex-col ">
 			<a href="/home"
-				><h2 class="w-fit font-bold text-pastel-p hover:text-pastel-c">Holland Sersen</h2></a
+				><h2 class="w-fit font-bold text-pastel-p hover:text-pastel-c">
+					{synthPatch.User.name}
+				</h2></a
 			>
-			<h1 class="font-bold">Max Synth</h1>
+			<h1 class="font-bold">{synthTitle}</h1>
 			<div class="align-center flex gap-x-2 align-text-bottom">
 				<StarRating />
 				<h2 class="opacity-50">100 Ratings</h2>
@@ -142,7 +154,7 @@
 		<h2 class="text-center font-bold">RELATED UNITS</h2>
 	</div>
 	<div class="mt-4 flex h-2/5 w-full justify-evenly gap-x-20">
-		{#each data.synths as synth}
+		{#each data.recs as synth}
 			<div class="w-fit md:mt-0">
 				<Card cardSynth={synth} />
 			</div>

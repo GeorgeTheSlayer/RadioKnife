@@ -20,6 +20,7 @@
 
 <svelte:head>
 	<title>{threads.title + ' | RadioKnife'}</title>
+	<script src="//cdn.tinymce.com/4/tinymce.min.js" type="text/javascript"></script>
 </svelte:head>
 
 <div class="w-fit break-normal">

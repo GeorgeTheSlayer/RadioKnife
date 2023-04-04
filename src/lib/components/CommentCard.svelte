@@ -247,8 +247,8 @@
 					<button
 						on:click={() => addVote(false)}
 						class="mr-1 text-2xl text-pastel-{colorThumb === false
-							? 'p'
-							: 'b'}  hover:text-pastel-p"
+							? 'c'
+							: 'b'}  hover:text-pastel-c"
 					>
 						{#if colorThumb === false}
 							<!--thumb down solid-->
