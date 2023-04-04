@@ -4,8 +4,8 @@
 	import { page } from '$app/stores';
 	import StarRating from '$lib/components/StarRating.svelte';
 	import Chevron from '$lib/components/Chevron.svelte';
-	import ViewEmote from '$lib/components/ViewEmote.svelte';
-	import { license } from '$lib/scripts/Strings';
+	// import ViewEmote from '$lib/components/ViewEmote.svelte';
+	// import { license } from '$lib/scripts/Strings';
 	import type { PageData } from './$types';
 	import Card from '$lib/components/Card.svelte';
 
