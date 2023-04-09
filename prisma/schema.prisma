@@ -11,18 +11,19 @@ datasource db {
 }
 
 model User {
-  id       String    @id @unique
-  name     String
-  username String    @unique
-  verified Boolean   @default(false)
-  session  Session[]
-  Key      Key[]
-  Synths   Synth[]
-  Forum    Thread[]
-  FPost    Comment[]
+  id          String        @id @unique
+  name        String        @unique
+  username    String        @unique
+  verified    Boolean       @default(false)
+  session     Session[]
+  Key         Key[]
+  Forum       Thread[]
+  FPost       Comment[]
   CommentLike CommentLike[]
-  SynthProfile SynthProfile[]
-  SynthProfileLike SynthProfileLike[]
+
+  //Possible Fields for synths
+  SynthProfile     synth_profile[]
+  SynthProfileLike synth_profile_like[]
 
   @@map("user")
 }
@@ -49,55 +50,44 @@ model Key {
   @@map("key")
 }
 
-model Synth {
-  id      Int     @id @default(autoincrement())
-  title   String  @db.VarChar(255)
-  content String  @db.VarChar(255)
-  file    Json
-  userId  String
-  User    User    @relation(fields: [userId], references: [id])
-  Thread   Thread[]
-  SynthProfile SynthProfile[]
-
-}
-
-model SynthProfile {
-  id      Int     @id @default(autoincrement())
-  title   String  @db.VarChar(255)
-  content String  @db.VarChar(255)
+model synth_profile {
+  id        Int      @id @default(autoincrement())
+  title     String   @db.VarChar(255)
+  content   String   @db.VarChar(255)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  ui      Json
-  userId  String
-  synthId Int
-  User    User    @relation(fields: [userId], references: [id])
-  Synth   Synth   @relation(fields: [synthId], references: [id])
-  SynthProfileLike SynthProfileLike[]
-  SynthProfileTags SynthProfileTags[]
+
+  views Int      @default(0)
+  ui    Json
+  tags  String[]
+
+  userId String
+  User   User   @relation(fields: [userId], references: [id])
+
+  likes synth_profile_like[]
+
+  file_id    Int        @unique
+  synth_file synth_file @relation(fields: [file_id], references: [id], onDelete: Cascade)
 }
 
-model SynthProfileLike {
-  id        Int      @id @default(autoincrement())
-  like      Boolean  @default(false)
+model synth_file {
+  id   Int  @id @default(autoincrement())
+  file Json
+
+  synth_profile synth_profile?
+}
+
+model synth_profile_like {
+  id Int @id @default(autoincrement())
 
   userId String
   User   User   @relation(fields: [userId], references: [id])
 
   synthProfileId Int
-  SynthProfile   SynthProfile @relation(fields: [synthProfileId], references: [id])
+  SynthProfile   synth_profile @relation(fields: [synthProfileId], references: [id])
+  //@@check(max(1, count(userId, SynthProfileLike.userId)))
 
   @@unique([userId, synthProfileId])
-  //@@check(max(1, count(userId, SynthProfileLike.userId)))
-}
-
-model SynthProfileTags {
-  id        Int      @id @default(autoincrement())
-  tag       String   @db.VarChar(255)
-
-  synthProfileId Int
-  SynthProfile   SynthProfile @relation(fields: [synthProfileId], references: [id])
-
-  @@unique([tag, synthProfileId])
 }
 
 model Thread {
@@ -110,9 +100,6 @@ model Thread {
 
   userId String
   User   User   @relation(fields: [userId], references: [id])
-
-  synthId Int?
-  Synth   Synth? @relation(fields: [synthId], references: [id])
 
   Comment Comment[]
 }
@@ -130,24 +117,24 @@ model Comment {
   User   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   forumId Int
-  Forum   Thread @relation(fields: [forumId], references: [id])
+  Forum   Thread @relation(fields: [forumId], references: [id], onDelete: Cascade)
 
   parentId      Int?
-  parent        Comment?  @relation("ChildComments", fields: [parentId], references: [id])
-  childComments Comment[] @relation("ChildComments")
+  parent        Comment?      @relation("ChildComments", fields: [parentId], references: [id] )
+  childComments Comment[]     @relation("ChildComments")
   CommentLike   CommentLike[]
 }
 
 model CommentLike {
-  id        Int      @id @default(autoincrement())
-  like      Boolean  @default(false)
+  id   Int     @id @default(autoincrement())
+  like Boolean @default(false)
 
   userId String
-  User   User   @relation(fields: [userId], references: [id])
+  User   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   commentId Int
-  Comment   Comment @relation(fields: [commentId], references: [id])
+  Comment   Comment @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  //@@check(max(1, count(userId, CommentLike.userId)))
 
   @@unique([userId, commentId])
-  //@@check(max(1, count(userId, CommentLike.userId)))
 }

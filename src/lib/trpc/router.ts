@@ -51,6 +51,20 @@ export const router = t.router({
 			} catch (error) {
 				return { error: 'error' };
 			}
+		}),
+	getUsernameFromId: t.procedure
+		.input(z.object({ userId: z.string().min(1) }))
+		.query(async ({ input }) => {
+			const userId = input.userId;
+			try {
+				const user = await prisma.user.findUnique({
+					where: { id: userId }
+				});
+				if (!user) return new Error('User not found');
+				return { username: user.name };
+			} catch (error) {
+				return { error: 'error' };
+			}
 		})
 });
 
