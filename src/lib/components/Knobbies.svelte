@@ -1,5 +1,6 @@
 <script>
 	import { capitalizeFirstLetter } from '$lib/scripts/Strings.ts';
+	import { onDestroy } from 'svelte';
 
 	export let value, min, max;
 	export let rotRange = 2 * Math.PI * 0.8;
@@ -31,6 +32,11 @@
 		window.removeEventListener('pointermove', pointerMove);
 		window.removeEventListener('pointerup', pointerUp);
 	}
+
+	onDestroy(() => {
+		window.removeEventListener('pointermove', pointerMove);
+		window.removeEventListener('pointerup', pointerUp);
+	});
 </script>
 
 <!-- Knob.svelte -->
@@ -38,7 +44,7 @@
 	<p>{capitalizeFirstLetter(name)}</p>
 	<div class="knob" style="--rotation: {rotation}" on:pointerdown={pointerDown}>
 		<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg">
-			<circle cx="50" cy="50" r="50%" fill="black" />
+			<circle cx="50" cy="50" r="50" fill="black" />
 			<line x1="50" y1="50" x2="50" y2="10" stroke="white" stroke-width="5" />
 		</svg>
 	</div>
@@ -49,9 +55,9 @@
 	.knob {
 		//background: conic-gradient(white 0%, white 2%, black 2%, black 98%, white 98%);
 
-		width: 100px;
+		width: 100%;
 		user-select: none;
-		height: 100px;
+		height: 100%;
 		border-radius: 50%;
 		transform: rotate(calc(var(--rotation) * 1rad));
 	}

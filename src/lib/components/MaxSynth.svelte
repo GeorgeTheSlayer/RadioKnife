@@ -1,17 +1,26 @@
 <script lang="ts">
 	import { beforeNavigate } from '$app/navigation';
-	import { createDevice, type IPatcher, type Device, type Parameter } from '@rnbo/js';
+	import {
+		createDevice,
+		type IPatcher,
+		type Device,
+		type Parameter,
+		type IParameterDescription
+	} from '@rnbo/js';
 	// import Knob from './Knob.svelte';
 	// import { WebMidi } from 'webmidi';
 	//import type { Synth } from '@prisma/client';
 	//import { flip } from 'svelte/animate';
+	// import { browser } from '$app/environment';
 	import { dndzone } from 'svelte-dnd-action';
 	import Knobbies from './Knobbies.svelte';
+	import { onDestroy } from 'svelte';
 
 	//Various inputs
 	let WAContext = window.AudioContext;
 	let context = new WAContext();
-	export let patcher: IPatcher;
+	export let patcher: IPatcher | undefined = undefined;
+
 	let device: Device;
 	export let isSetup = false;
 	export let canEdit = false;
@@ -33,6 +42,10 @@
 		// WebMidi.enable()
 		// 	.then(onEnabled)
 		// 	.catch((err) => alert(err));
+		if (!patcher) {
+			console.log('No patcher');
+			return;
+		}
 
 		device = await createDevice({ context, patcher });
 
@@ -52,7 +65,6 @@
 		}
 
 		params = device.parameters;
-		console.log(params[0].index);
 
 		// Bind MIDI to device parameters
 		// bindDeviceParametersToMidi(device);
@@ -65,6 +77,10 @@
 	function handleSort(e) {
 		params = e.detail.params;
 	}
+
+	onDestroy(() => {
+		context.close();
+	});
 
 	//This is a cleanup function that runs before the page navigates away
 	beforeNavigate(() => {

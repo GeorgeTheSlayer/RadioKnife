@@ -1,35 +1,38 @@
 <script lang="ts">
 	import MaxSynth from '$lib/components/MaxSynth.svelte';
 	// import { browser } from '$app/environment';
-	import { page } from '$app/stores';
-	import StarRating from '$lib/components/StarRating.svelte';
+	// import { page } from '$app/stores';
+	// import StarRating from '$lib/components/StarRating.svelte';
 	import Chevron from '$lib/components/Chevron.svelte';
 	// import ViewEmote from '$lib/components/ViewEmote.svelte';
 	// import { license } from '$lib/scripts/Strings';
-	import type { Synth } from '@prisma/client';
+	import type { synth_file } from '@prisma/client';
+	import type { synth_profile } from '@prisma/client';
 	import type { PageData } from './$types';
 	import Card from '$lib/components/Card.svelte';
+	import { trpc } from '$lib/trpc/client';
 	import { onMount } from 'svelte';
-	//import { json } from '@sveltejs/kit';
-
-	//Get Seach Params and show on browser
-	const URL = $page.url;
-	const synthId: number | undefined = Number(URL.searchParams.get('id'));
+	import { page } from '$app/stores';
 
 	export let data: PageData;
-	const synthPatch: Synth = data.synth;
-	const synthTitle = synthPatch.title;
-	let synthPatcher = undefined;
-
-	onMount(async () => {
-		synthPatcher = await JSON.parse(JSON.stringify(synthPatch.file));
-	});
+	const synthPatch = Object.create(data.synth.file);
+	const synthProfile: synth_profile = data.synth.synth_profile;
+	// const synthPatch: synth_file = data.synth;
+	const synthTitle = synthProfile.title;
 
 	let isLiked = false;
 	// let isLicense = false;
 	let isDescription = false;
 	let isDisscussion = true;
 	const testMode = false;
+	const userId = synthProfile.userId;
+
+	let userName = 'Anonymous';
+
+	onMount(async () => {
+		let tempName = await trpc($page).getUsernameFromId.query({ userId: userId });
+		userName = tempName.username;
+	});
 	// let isMounted = false;
 </script>
 
@@ -40,20 +43,18 @@
 <div class="w-max-full mx-10 h-screen">
 	<div class=" min-h-4/6 mt-4 flex h-4/6 gap-x-2">
 		<div class="align-center flex-1 items-center justify-center  bg-pastel-p">
-			{#if synthPatcher}
-				<MaxSynth patcher={synthPatcher} title={synthTitle} canEdit={testMode} />
-			{/if}
+			<MaxSynth patcher={synthPatch} title={synthTitle} canEdit={testMode} />
 		</div>
 		<div class="w-1/4 flex-col ">
 			<a href="/home"
 				><h2 class="w-fit font-bold text-pastel-p hover:text-pastel-c">
-					{synthPatch.User.name}
+					{userName}
 				</h2></a
 			>
 			<h1 class="font-bold">{synthTitle}</h1>
 			<div class="align-center flex gap-x-2 align-text-bottom">
-				<StarRating />
-				<h2 class="opacity-50">100 Ratings</h2>
+				<!--				<StarRating />-->
+				<!--				<h2 class="opacity-50">100 Ratings</h2>-->
 				<!--				<ViewEmote />-->
 			</div>
 			<!--			<div class="flex gap-x-2">-->
@@ -134,13 +135,7 @@
 			</div>
 			{#if isDescription}
 				<p>
-					It is a long established fact that a reader will be distracted by the readable content of
-					a page when looking at its layout. The point of using Lorem Ipsum is that it has a
-					more-or-less normal distribution of letters, as opposed to using 'Content here, content
-					here', making it look like readable English. Many desktop publishing packages and web page
-					editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum'
-					will uncover many web sites still in their infancy. Various versions have evolved over the
-					years, sometimes by accident, sometimes on purpose (injected humour and the like).
+					{synthProfile.content}
 				</p>
 			{/if}
 

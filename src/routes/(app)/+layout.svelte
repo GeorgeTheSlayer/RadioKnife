@@ -1,7 +1,8 @@
 <script lang="ts">
+	// eslint-disable-next-line ParseError
+	import type { LayoutData } from './$types';
 	import Navbar from '$lib/components/Navbar.svelte';
 	import Banner from '$lib/components/Banner.svelte';
-	import type { LayoutData } from './$types';
 
 	export let data: LayoutData;
 

@@ -4,6 +4,7 @@
 	import { slide } from 'svelte/transition';
 	import Card from '$lib/components/Card.svelte';
 	export let data: PageData;
+	console.log(data.synths);
 
 	let isCatsOpen = true;
 	let isManOpen = true;
