@@ -15,6 +15,7 @@
 	import { dndzone } from 'svelte-dnd-action';
 	import Knobbies from './Knobbies.svelte';
 	import { onDestroy } from 'svelte';
+	import ImageSynth from './ImageSynth.svelte';
 
 	//Various inputs
 	let WAContext = window.AudioContext;
@@ -25,6 +26,7 @@
 	export let isSetup = false;
 	export let canEdit = false;
 	export let title: string | undefined = '';
+	export let SynthPreview: ImageSynth | undefined = undefined;
 	let params: Parameter[] = [];
 
 	// let Inputs: string[] = [];
@@ -119,9 +121,11 @@
 			</div>
 		</div>
 	{:else}
-		<div class="justify-center text-center">
+		<div
+			class="mx-auto flex h-full w-3/4 items-center justify-center border-2 border-pastel-b bg-pastel-p text-center"
+		>
 			<button
-				class="focus:shadow-outline mt-4 rounded bg-indigo-500 py-2 px-4 font-bold text-white hover:bg-indigo-700 focus:outline-none"
+				class="focus:shadow-outline mt-4 border-2 border-pastel-b bg-pastel-w py-2 px-4 font-bold  hover:bg-pastel-c focus:outline-none"
 				on:click={setup}>Start the Sound</button
 			>
 		</div>
