@@ -46,7 +46,7 @@
 			<MaxSynth patcher={synthPatch} title={synthTitle} canEdit={testMode} />
 		</div>
 		<div class="w-1/4 flex-col ">
-			<a href="/home"
+			<a href="/account/{userId}"
 				><h2 class="w-fit font-bold text-pastel-p hover:text-pastel-c">
 					{userName}
 				</h2></a

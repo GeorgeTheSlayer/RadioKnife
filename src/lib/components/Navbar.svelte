@@ -77,7 +77,7 @@
 			<a class="hidden md:block" href="/synth/create"><h2>Create</h2></a>
 		</li>
 	</ul>
-	<ul class=" ml-auto hidden w-fit grow-0 items-center gap-x-2 md:flex">
+	<ul class=" ml-auto hidden w-fit grow-0 items-center gap-x-2 pr-4 md:flex">
 		<li class=" flex rounded hover:bg-pastel-p">
 			{#if isSearch}
 				<div transition:slide|local class="flex h-full w-full border-4 border-black text-primary-b">

@@ -14,23 +14,54 @@
 
 	const threads: Thread = data.thread as const;
 
-	let apiKey = 'ama8nrb3pwnvsiap1exjga2ja1aktl54cmbr8ose8spgeh2m';
+	const apiKey = 'ama8nrb3pwnvsiap1exjga2ja1aktl54cmbr8ose8spgeh2m';
+	let conf = {
+		height: 500,
+		plugins: [
+			'a11ychecker',
+			'advlist',
+			'advcode',
+			'advtable',
+			'autolink',
+			'checklist',
+			'export',
+			'lists',
+			'link',
+			'image',
+			'charmap',
+			'preview',
+			'anchor',
+			'searchreplace',
+			'visualblocks',
+			'powerpaste',
+			'fullscreen',
+			'formatpainter',
+			'insertdatetime',
+			'media',
+			'table',
+			'help',
+			'wordcount'
+		],
+		toolbar:
+			'undo redo | a11ycheck casechange blocks | bold italic backcolor | alignleft aligncenter alignright alignjustify | ' +
+			'bullist numlist checklist outdent indent | removeformat | code table help'
+	};
+
 	let editorAdd = '';
 </script>
 
 <svelte:head>
 	<title>{threads.title + ' | RadioKnife'}</title>
-	<script src="//cdn.tinymce.com/4/tinymce.min.js" type="text/javascript"></script>
 </svelte:head>
 
-<div class="w-fit break-normal">
+<div class="mx-10 w-full break-normal">
 	<h1>{threads.title}</h1>
 	<p>{threads.content}</p>
 
 	<div class="mt-4 ">
 		{#each commentGraph as posts}
-			<div class="ml-{(posts.level * 10).toString()} mt-4">
-				<CommentCard comment={posts.masterComment} tab={posts.level * 2} />
+			<div class="mx-10 mt-4">
+				<CommentCard comment={posts.masterComment} tab={posts.level * 100} />
 			</div>
 		{/each}
 	</div>

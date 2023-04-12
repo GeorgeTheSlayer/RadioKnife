@@ -7,7 +7,12 @@ export const load: PageServerLoad = async () => {
 		return await prisma.synth_profile.findMany();
 	};
 
+	const getProfiles = async () => {
+		return await prisma.user.findMany({ include: { _count: { select: { SynthProfile: true } } } });
+	};
+
 	return {
-		synths: getSynths()
+		synths: getSynths(),
+		profiles: getProfiles()
 	};
 };

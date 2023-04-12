@@ -1,21 +1,83 @@
 <script lang="ts">
 	import type { synth_profile } from '@prisma/client';
-	import MaxSynth from './MaxSynth.svelte';
+	//import MaxSynth from './MaxSynth.svelte';
 	import ImageSynth from './ImageSynth.svelte';
 	//import Knob from './Knob.svelte';
 	export let cardSynth: synth_profile;
 	const cardArrary = cardSynth.ui.value.ui;
-	console.log(cardSynth);
 
 	// const link2 = 'https://source.unsplash.com/eCSL1ujUyD4';
+
+	const link = '/synth/view/' + cardSynth.file_id;
+
+	let isLiked = false;
 </script>
 
-<div class="h-full w-full overflow-hidden rounded shadow-lg">
-	<a href={'/synth/view/' + cardSynth.file_id}>
-		<!--		<img src={link2} alt="Test" class="w-full" />-->
-		<ImageSynth uiPatcher={cardArrary} />
-		<h2>{cardSynth.title}</h2>
-		<p>{cardSynth.content}</p>
-		<button class="mt-auto w-full border-2 border-pastel-b text-center">Play Now</button>
+<div class="h-full w-full overflow-hidden border-2 border-pastel-b shadow-lg">
+	<!--		<img src={link2} alt="Test" class="w-full" />-->
+	<a
+		href={link}
+		class=" flex h-3/4 items-center justify-center border-b-2 border-pastel-b hover:opacity-50"
+	>
+		<div class="h-5/6 w-5/6 shadow-lg ">
+			<ImageSynth uiPatcher={cardArrary} title={cardSynth.title} />
+		</div>
+	</a>
+	<div class="h-1/8 max-h-1/8 flex w-full border-t-2 bg-pastel-w p-1 ">
+		<a href={link} class="w-fit hover:text-pastel-p">
+			<h2>{cardSynth.title}</h2>
+			<p class="w-fit overflow-clip whitespace-nowrap opacity-50">{cardSynth.content}</p>
+		</a>
+		<div class="ml-auto w-fit">
+			<button on:click={() => (isLiked = !isLiked)}>
+				{#if isLiked}
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						class="icon icon-tabler icon-tabler-heart-filled text-pastel-p hover:text-pastel-c"
+						width="24"
+						height="24"
+						viewBox="0 0 24 24"
+						stroke-width="2"
+						stroke="currentColor"
+						fill="none"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+						<path
+							d="M6.979 3.074a6 6 0 0 1 4.988 1.425l.037 .033l.034 -.03a6 6 0 0 1 4.733 -1.44l.246 .036a6 6 0 0 1 3.364 10.008l-.18 .185l-.048 .041l-7.45 7.379a1 1 0 0 1 -1.313 .082l-.094 -.082l-7.493 -7.422a6 6 0 0 1 3.176 -10.215z"
+							stroke-width="0"
+							fill="currentColor"
+						/>
+					</svg>
+				{:else}
+					<!--                    Not Liked-->
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						class="icon icon-tabler icon-tabler-heart text-pastel-b hover:text-pastel-p"
+						width="24"
+						height="24"
+						viewBox="0 0 24 24"
+						stroke-width="2"
+						stroke="currentColor"
+						fill="none"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					>
+						<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+						<path
+							d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"
+						/>
+					</svg>
+				{/if}
+			</button>
+			<p class="text-center opacity-50">0</p>
+		</div>
+	</div>
+	<a href={link}>
+		<button
+			class="h-1/8 mt-auto w-full border-t-2 border-pastel-b text-center text-2xl hover:bg-pastel-p  "
+			>Play Now</button
+		>
 	</a>
 </div>

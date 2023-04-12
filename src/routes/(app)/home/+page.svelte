@@ -4,9 +4,10 @@
 	import { slide } from 'svelte/transition';
 	import Card from '$lib/components/Card.svelte';
 	export let data: PageData;
-	console.log(data.synths);
 
-	let isCatsOpen = true;
+	const profiles = data.profiles;
+
+	let isCatsOpen = false;
 	let isManOpen = true;
 </script>
 
@@ -14,8 +15,8 @@
 	<title>RadioKnife</title>
 </svelte:head>
 
-<div class="mt-9 flex w-screen justify-center">
-	<div class="max-w-1/3 flex hidden w-1/4 flex-col md:block ">
+<div class="mt-9 flex h-screen w-screen justify-center">
+	<div class="max-w-1/3 ml-2 hidden w-2/5 flex-col md:block ">
 		<div class=" align-center flex gap-x-2 border-b-2 border-pastel-b pb-1">
 			<h2 class="font-bold">
 				Sort By: <select class="border-2 border-pastel-b text-center hover:bg-pastel-c">
@@ -67,25 +68,20 @@
 			</div>
 			{#if isManOpen}
 				<div transition:slide|local class="justify-normal grid w-fit grid-cols-2 gap-y-1">
-					<input type="checkbox" id="man1" name="cat1" value="Synth" />
-					<label for="man1"> Holland <span class="opacity-50">(10)</span></label>
-					<input type="checkbox" id="man2" name="cat2" value="Synth" />
-					<label for="man2"> Zoe <span class="opacity-50">(10)</span> </label>
-					<input type="checkbox" id="man3" name="cat3" value="Synth" />
-					<label for="man3"> yomama <span class="opacity-50">(10)</span></label>
-					<input type="checkbox" id="man4" name="cat4" value="Synth" />
-					<label for="man4"> Cool Guy <span class="opacity-50">(10)</span></label>
-					<input type="checkbox" id="man5" name="cat5" value="Synth" />
-					<label for="man5"> testing <span class="opacity-50">(10)</span></label>
-					<input type="checkbox" id="man6" name="cat6" value="Synth" />
-					<label for="man6"> Dope <span class="opacity-50">(10)</span></label>
+					{#each profiles as profile}
+						<input type="checkbox" id={profile.name} name="cat1" value="Synth" />
+						<label for={profile.name}>
+							{profile.name}
+							<span class="opacity-50">{'(' + profile._count.SynthProfile + ')'}</span></label
+						>
+					{/each}
 				</div>
 			{/if}
 		</div>
 	</div>
-	<div class=" w-3/4 gap-8 md:ml-12 md:grid md:grid-cols-3">
+	<div class=" mr-6 h-2/5 w-full gap-8 md:ml-12 md:grid md:grid-cols-3">
 		{#each data.synths as synth}
-			<div class="mt-8 w-fit md:mt-0">
+			<div class="w-full">
 				<Card cardSynth={synth} />
 			</div>
 		{/each}
