@@ -29,10 +29,10 @@
 
 	let userName = 'Anonymous';
 	//
-	// onMount(async () => {
-	// 	let tempName = await trpc($page).getUsernameFromId.query({ userId: userId });
-	// 	userName = tempName.username;
-	// });
+	onMount(async () => {
+		let tempName = await trpc($page).getUsernameFromId.query({ userId: userId });
+		userName = tempName.username;
+	});
 	// let isMounted = false;
 </script>
 
