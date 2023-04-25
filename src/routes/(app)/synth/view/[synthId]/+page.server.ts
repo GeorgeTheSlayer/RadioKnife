@@ -7,7 +7,7 @@ export const load: PageServerLoad = async ({ params }) => {
 
 	async function getRecSynths() {
 		try {
-			return await prisma.synth_profile.findMany();
+			return await prisma.synth_profile.findMany({ take: 4 });
 		} catch (err) {
 			throw error(505);
 		}
@@ -20,7 +20,7 @@ export const load: PageServerLoad = async ({ params }) => {
 				include: { synth_profile: true }
 			});
 		} catch (err) {
-			return Error('Error');
+			throw error(505);
 		}
 	}
 

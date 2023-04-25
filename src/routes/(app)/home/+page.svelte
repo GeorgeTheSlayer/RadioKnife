@@ -19,7 +19,9 @@
 	<div class="max-w-1/3 ml-2 hidden w-2/5 flex-col md:block ">
 		<div class=" align-center flex gap-x-2 border-b-2 border-pastel-b pb-1">
 			<h2 class="font-bold">
-				Sort By: <select class="border-2 border-pastel-b text-center hover:bg-pastel-c">
+				Sort By: <select
+					class="overflow-x-auto border-2 border-pastel-b text-center hover:bg-pastel-c"
+				>
 					<option value="view">Most Viewed</option>
 					<option value="like">Most Liked</option>
 					<option value="nameabc">Name (A-Z)</option>
@@ -67,7 +69,7 @@
 				<Chevron bind:isExpanded={isManOpen} />
 			</div>
 			{#if isManOpen}
-				<div transition:slide|local class="justify-normal grid w-fit grid-cols-2 gap-y-1">
+				<div transition:slide|local class="justify-normal grid w-fit grid-cols-2 gap-y-1 truncate">
 					{#each profiles as profile}
 						<input type="checkbox" id={profile.name} name="cat1" value="Synth" />
 						<label for={profile.name}>
@@ -79,9 +81,11 @@
 			{/if}
 		</div>
 	</div>
-	<div class=" mr-6 h-2/5 w-full gap-8 md:ml-12 md:grid md:grid-cols-3">
+	<div
+		class="mt-2 grid h-full w-full justify-center gap-8 align-middle md:m-auto md:mx-12 md:auto-cols-fr lg:auto-rows-fr lg:grid-cols-2 xl:grid-cols-3"
+	>
 		{#each data.synths as synth}
-			<div class="w-full">
+			<div class="h-full w-full">
 				<Card cardSynth={synth} />
 			</div>
 		{/each}

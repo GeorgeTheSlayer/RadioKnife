@@ -6,7 +6,7 @@
 	import Chevron from '$lib/components/Chevron.svelte';
 	// import ViewEmote from '$lib/components/ViewEmote.svelte';
 	// import { license } from '$lib/scripts/Strings';
-	import type { synth_file } from '@prisma/client';
+	// import type { synth_file } from '@prisma/client';
 	import type { synth_profile } from '@prisma/client';
 	import type { PageData } from './$types';
 	import Card from '$lib/components/Card.svelte';
@@ -41,8 +41,8 @@
 </svelte:head>
 
 <div class="w-max-full mx-10 h-screen">
-	<div class=" min-h-4/6 mt-4 flex h-4/6 gap-x-2">
-		<div class="align-center flex-1 items-center justify-center  bg-pastel-p">
+	<div class=" min-h-4/6 mt-4 flex h-4/6 flex-col gap-x-2 md:flex-row">
+		<div class="align-center flex-1 items-center justify-center bg-pastel-p  ">
 			<MaxSynth patcher={synthPatch} title={synthTitle} canEdit={testMode} />
 		</div>
 		<div class="w-1/4 flex-col ">
@@ -51,7 +51,7 @@
 					{userName}
 				</h2></a
 			>
-			<h1 class="font-bold">{synthTitle}</h1>
+			<h1 class=" font-bold">{synthTitle}</h1>
 			<div class="align-center flex gap-x-2 align-text-bottom">
 				<!--				<StarRating />-->
 				<!--				<h2 class="opacity-50">100 Ratings</h2>-->
@@ -138,7 +138,6 @@
 					{synthProfile.content}
 				</p>
 			{/if}
-
 			<div class=" flex w-full border-b-2 border-pastel-b">
 				<Chevron bind:isExpanded={isDisscussion} />
 				<div class=" pb-1"><h2 class="font-bold">Comments</h2></div>
@@ -148,7 +147,7 @@
 	<div class=" mt-2 border-b-2 border-pastel-b pb-1">
 		<h2 class="text-center font-bold">RELATED UNITS</h2>
 	</div>
-	<div class="mt-4 flex h-2/5 w-full justify-evenly gap-x-20">
+	<div class="mt-4 flex h-2/5 w-full justify-evenly lg:gap-x-10 xl:gap-x-20">
 		{#each data.recs as synth}
 			<div class="w-fit md:mt-0">
 				<Card cardSynth={synth} />

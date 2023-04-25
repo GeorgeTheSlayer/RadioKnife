@@ -18,7 +18,7 @@
 	import ImageSynth from './ImageSynth.svelte';
 
 	//Various inputs
-	let WAContext = window.AudioContext;
+	let WAContext = window.AudioContext || window.webkitAudioContext;
 	let context = new WAContext();
 	export let patcher: IPatcher | undefined = undefined;
 
@@ -80,13 +80,17 @@
 		params = e.detail.params;
 	}
 
-	onDestroy(() => {
-		context.close();
+	onDestroy(async () => {
+		if (context.state === 'running' || context.state === 'suspended') {
+			await context.close();
+		}
 	});
 
 	//This is a cleanup function that runs before the page navigates away
-	beforeNavigate(() => {
-		context.close();
+	beforeNavigate(async () => {
+		if (context.state === 'running' || context.state === 'suspended') {
+			await context.close();
+		}
 	});
 </script>
 

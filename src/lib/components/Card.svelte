@@ -13,22 +13,22 @@
 	let isLiked = false;
 </script>
 
-<div class="h-full w-full overflow-hidden border-2 border-pastel-b shadow-lg">
+<div class="block h-full w-full max-w-sm border-2 border-pastel-b shadow-lg">
 	<!--		<img src={link2} alt="Test" class="w-full" />-->
 	<a
 		href={link}
-		class=" flex h-3/4 items-center justify-center border-b-2 border-pastel-b hover:opacity-50"
+		class="flex h-3/4 items-center justify-center border-b-2 border-pastel-b hover:opacity-50"
 	>
-		<div class="h-5/6 w-5/6 shadow-lg ">
+		<div class="m-8 h-3/4 shadow-lg">
 			<ImageSynth uiPatcher={cardArrary} title={cardSynth.title} />
 		</div>
 	</a>
-	<div class="h-1/8 max-h-1/8 flex w-full border-t-2 bg-pastel-w p-1 ">
-		<a href={link} class="w-fit hover:text-pastel-p">
+	<div class="max-h-1/8 flex h-fit w-auto min-w-fit bg-pastel-w p-1 ">
+		<a href={link} class="w-fit truncate hover:text-pastel-p">
 			<h2>{cardSynth.title}</h2>
-			<p class="w-fit overflow-clip whitespace-nowrap opacity-50">{cardSynth.content}</p>
+			<p class="opacity-50">{cardSynth.content}</p>
 		</a>
-		<div class="ml-auto w-fit">
+		<div class="ml-auto w-fit overflow-ellipsis">
 			<button on:click={() => (isLiked = !isLiked)}>
 				{#if isLiked}
 					<svg
@@ -74,10 +74,10 @@
 			<p class="text-center opacity-50">0</p>
 		</div>
 	</div>
-	<a href={link}>
-		<button
-			class="h-1/8 mt-auto w-full border-t-2 border-pastel-b text-center text-2xl hover:bg-pastel-p  "
-			>Play Now</button
-		>
-	</a>
+	<!--	<a href={link}>-->
+	<!--		<button-->
+	<!--			class="h-1/8 mt-auto w-full border-t-2 border-pastel-b text-center text-2xl hover:bg-pastel-p  "-->
+	<!--			>Play Now</button-->
+	<!--		>-->
+	<!--	</a>-->
 </div>
