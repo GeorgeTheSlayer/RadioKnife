@@ -374,7 +374,7 @@
 		</div>
 		{#if isReply}
 			<form transition:slide|local action="?/addReply" method="post" enctype="multipart/form-data">
-				<Editor {apiKey} bind:value={editorReply} />
+				<!--				<Editor {apiKey} bind:value={editorReply} />-->
 				<input type="hidden" name="replyContent" id="replyContent" value={editorReply} />
 				<input type="hidden" name="commentId" id="commentId" value={comment.id} />
 				<button on:click={clickReply} type="submit">Submit</button>
@@ -387,7 +387,7 @@
 				method="post"
 				enctype="multipart/form-data"
 			>
-				<Editor {apiKey} bind:value={editorEdit} />
+				<!--				<Editor {apiKey} bind:value={editorEdit} />-->
 				<input type="hidden" name="editContent" id="editContent" value={editorEdit} />
 				<input type="hidden" name="editCommentId" id="editCommentId" value={comment.id} />
 				<button type="submit">Submit</button>
