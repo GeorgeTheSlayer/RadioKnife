@@ -2,9 +2,9 @@
 	//import type { PageData } from './$types';
 	import CommentCard from '$lib/components/CommentCard.svelte';
 	import type { Comment, Thread } from '@prisma/client';
-	import { enhance } from '$app/forms';
+	//import { enhance } from '$app/forms';
 	import { CommentTree } from '$lib/scripts/CommentTree';
-	import Editor from '@tinymce/tinymce-svelte';
+	//import Editor from '@tinymce/tinymce-svelte';
 	/** @type {import('./$types').PageData} */
 	export let data;
 

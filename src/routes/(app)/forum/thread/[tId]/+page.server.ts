@@ -1,7 +1,7 @@
 import { prisma } from '$lib/server/prisma';
 import type { PageServerLoad } from './$types';
 import type { Actions } from '@sveltejs/kit';
-import { redirect } from '@sveltejs/kit';
+import { error, redirect } from '@sveltejs/kit';
 import { z } from 'zod';
 
 const commentParser = z.object({
@@ -14,24 +14,29 @@ const commentParser = z.object({
 export const load: PageServerLoad = async ({ params }) => {
 	const ID = Number(params.tId);
 	const thread = async () => {
-		return await prisma.thread.findUnique({
-			where: {
-				id: ID
-			}
-		});
-	};
-	const posts = async () => {
-		return await prisma.comment.findMany({
-			where: { forumId: ID },
-			include: { childComments: true, User: true, CommentLike: true }
-		});
+		try {
+			return await prisma.thread.findUnique({
+				where: {
+					id: ID
+				}
+			});
+		} catch (e) {
+			throw error(505, 'Check the console');
+		}
 	};
 
-	try {
-		return { thread: thread(), posts: posts() };
-	} catch (e) {
-		console.log(e);
-	}
+	const posts = async () => {
+		try {
+			return await prisma.comment.findMany({
+				where: { forumId: ID },
+				include: { childComments: true, User: true, CommentLike: true }
+			});
+		} catch (e) {
+			throw error(505, 'Check the console');
+		}
+	};
+
+	return { thread: thread(), posts: posts() };
 };
 
 export const actions: Actions = {
