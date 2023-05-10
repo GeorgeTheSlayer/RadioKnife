@@ -8,7 +8,7 @@
 	import { trpc } from '$lib/trpc/client';
 	import { capitalizeFirstLetter } from '../scripts/Strings';
 	import { page } from '$app/stores';
-	import * as dayjs from 'dayjs';
+	import dayjs from 'dayjs';
 	import relativeTime from 'dayjs/plugin/relativeTime';
 	import { browser } from '$app/environment';
 	/** @type {import('@prisma/client').Comment} */
@@ -65,7 +65,7 @@
 			colorThumb = undefined;
 			return;
 		}
-		arr.forEach((like) => {
+		arr.forEach(like => {
 			if (like.like) {
 				likeNum++;
 			} else {
@@ -91,7 +91,7 @@
 
 	async function addVote(value: boolean) {
 		if (user) {
-			const found = likeObjs.find((like) => like.userId == userId);
+			const found = likeObjs.find(like => like.userId == userId);
 
 			const likeVal = found?.like;
 			if (found && likeVal == value) {

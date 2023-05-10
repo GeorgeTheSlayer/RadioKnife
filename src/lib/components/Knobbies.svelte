@@ -1,29 +1,44 @@
-<script>
-	import { capitalizeFirstLetter } from '$lib/scripts/Strings.ts';
+<style lang="postcss">
+	.knob {
+		//background: conic-gradient(white 0%, white 2%, black 2%, black 98%, white 98%);
+
+		width: 100%;
+		user-select: none;
+		height: 100%;
+		border-radius: 50%;
+		transform: rotate(calc(var(--rotation) * 1rad));
+		touch-action: none;
+	}
+</style>
+
+<script lang="ts">
+	import { capitalizeFirstLetter } from '$lib/scripts/Strings';
 	import { onDestroy } from 'svelte';
 
-	export let value, min, max;
+	export let value: number, min: number, max: number;
 	export let rotRange = 2 * Math.PI * 0.8;
 	export let pixelRange = 200;
 	export let startRotation = -Math.PI * 0.8;
 	export let name = 'Pam';
 
-	let startY, startValue;
+	let startY: number, startValue: number;
 	$: valueRange = max - min;
 	$: rotation = startRotation + ((value - min) / valueRange) * rotRange;
 
-	function clamp(num, min, max) {
+	function clamp(num: number, min: number, max: number) {
 		return Math.max(min, Math.min(num, max));
 	}
 
 	function pointerMove({ clientY }) {
 		const valueDiff = (valueRange * (clientY - startY)) / pixelRange;
 		value = clamp(startValue - valueDiff, min, max);
+		//console.log(value);
 	}
 
 	function pointerDown({ clientY }) {
 		startY = clientY;
 		startValue = value;
+
 		window.addEventListener('pointermove', pointerMove);
 		window.addEventListener('pointerup', pointerUp);
 	}
@@ -50,15 +65,3 @@
 	</div>
 	<p>{Math.round(value)}</p>
 </div>
-
-<style lang="postcss">
-	.knob {
-		//background: conic-gradient(white 0%, white 2%, black 2%, black 98%, white 98%);
-
-		width: 100%;
-		user-select: none;
-		height: 100%;
-		border-radius: 50%;
-		transform: rotate(calc(var(--rotation) * 1rad));
-	}
-</style>

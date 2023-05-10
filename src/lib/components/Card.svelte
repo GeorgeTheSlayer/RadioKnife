@@ -4,7 +4,7 @@
 	import ImageSynth from './ImageSynth.svelte';
 	//import Knob from './Knob.svelte';
 	export let cardSynth: synth_profile;
-	const cardArrary = cardSynth.ui.value.ui;
+	const cardArrary = cardSynth?.ui?.value.ui;
 
 	// const link2 = 'https://source.unsplash.com/eCSL1ujUyD4';
 
@@ -13,22 +13,19 @@
 	let isLiked = false;
 </script>
 
-<div class="block h-full w-full max-w-sm border-2 border-pastel-b shadow-lg">
+<div class="flex min-h-full flex-col border-2 border-pastel-b shadow-lg">
 	<!--		<img src={link2} alt="Test" class="w-full" />-->
-	<a
-		href={link}
-		class="flex h-3/4 items-center justify-center border-b-2 border-pastel-b hover:opacity-50"
-	>
-		<div class="m-8 h-3/4 shadow-lg">
+	<a data-sveltekit-reload href={link} class="flex hover:opacity-50">
+		<div class="m-8 h-full w-full shadow-lg">
 			<ImageSynth uiPatcher={cardArrary} title={cardSynth.title} />
 		</div>
 	</a>
-	<div class="max-h-1/8 flex h-fit w-auto min-w-fit bg-pastel-w p-1 ">
-		<a href={link} class="w-fit truncate hover:text-pastel-p">
+	<div class="min-w-fit mt-auto  flex border-t-2 border-pastel-b  bg-pastel-w p-1 ">
+		<a data-sveltekit-reload href={link} class="w-fit truncate hover:text-pastel-p">
 			<h2>{cardSynth.title}</h2>
 			<p class="opacity-50">{cardSynth.content}</p>
 		</a>
-		<div class="ml-auto w-fit overflow-ellipsis">
+		<div class="w-fit ml-auto overflow-ellipsis">
 			<button on:click={() => (isLiked = !isLiked)}>
 				{#if isLiked}
 					<svg

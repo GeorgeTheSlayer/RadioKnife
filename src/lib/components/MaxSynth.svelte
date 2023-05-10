@@ -15,7 +15,7 @@
 	import { dndzone } from 'svelte-dnd-action';
 	import Knobbies from './Knobbies.svelte';
 	import { onDestroy } from 'svelte';
-	import ImageSynth from './ImageSynth.svelte';
+	import type ImageSynth from './ImageSynth.svelte';
 
 	//Various inputs
 	let WAContext = window.AudioContext || window.webkitAudioContext;
@@ -26,7 +26,7 @@
 	export let isSetup = false;
 	export let canEdit = false;
 	export let title: string | undefined = '';
-	export let SynthPreview: ImageSynth | undefined = undefined;
+	export const SynthPreview: ImageSynth | undefined = undefined;
 	let params: Parameter[] = [];
 
 	// let Inputs: string[] = [];
@@ -64,9 +64,9 @@
 				device.setPreset(preset!.preset);
 				console.log('Loaded Preset 0');
 			}
+			params = device.parameters;
+			context.resume();
 		}
-
-		params = device.parameters;
 
 		// Bind MIDI to device parameters
 		// bindDeviceParametersToMidi(device);
@@ -80,31 +80,31 @@
 		params = e.detail.params;
 	}
 
-	onDestroy(async () => {
-		if (context.state === 'running' || context.state === 'suspended') {
-			await context.close();
-		}
-	});
+	// onDestroy(async () => {
+	// 	if (context.state === 'running' || context.state === 'suspended') {
+	// 		await context.close();
+	// 	}
+	// });
 
-	//This is a cleanup function that runs before the page navigates away
-	beforeNavigate(async () => {
-		if (context.state === 'running' || context.state === 'suspended') {
-			await context.close();
-		}
-	});
+	// //This is a cleanup function that runs before the page navigates away
+	// beforeNavigate(async () => {
+	// 	if (context.state === 'running' || context.state === 'suspended') {
+	// 		await context.close();
+	// 	}
+	// });
 </script>
 
-<div class="h-full w-full  bg-pastel-w p-8">
+<div class="h-full bg-pastel-w ">
 	{#if isSetup}
-		<div class="mx-auto h-full w-3/4 border-2 border-pastel-b bg-pastel-p shadow-2xl">
+		<div class="h-full border-2 border-pastel-b bg-pastel-p shadow-2xl">
 			<h1 class=" text-center">{title}</h1>
 			<div class=" align-center grid  grid-cols-4 justify-items-center gap-4">
 				{#if canEdit}
-					<section use:dndzone={{ params }} on:consider={handleSort} on:finalize={handleSort}>
+					<!-- <section use:dndzone={{ params }} on:consider={handleSort} on:finalize={handleSort}>
 						{#each params as pam (pam.index)}
 							<div>{pam.name}</div>
 						{/each}
-					</section>
+					</section> -->
 				{:else}
 					{#each device.parameters as pam}
 						{#if pam.type == 0}
@@ -126,10 +126,10 @@
 		</div>
 	{:else}
 		<div
-			class="mx-auto flex h-full w-3/4 items-center justify-center border-2 border-pastel-b bg-pastel-p text-center"
+			class=" flex h-full items-center justify-center border-2 border-pastel-b bg-pastel-p text-center"
 		>
 			<button
-				class="focus:shadow-outline mt-4 border-2 border-pastel-b bg-pastel-w py-2 px-4 font-bold  hover:bg-pastel-c focus:outline-none"
+				class="focus:shadow-outline focus:outline-none mt-4 border-2 border-pastel-b bg-pastel-w py-2 px-4  font-bold hover:bg-pastel-c"
 				on:click={setup}>Start the Sound</button
 			>
 		</div>

@@ -1,4 +1,4 @@
-const colors = require('tailwindcss/colors')
+const colors = require('tailwindcss/colors');
 //Logo text-5xl
 //Medium text-2xl
 //Small text-base

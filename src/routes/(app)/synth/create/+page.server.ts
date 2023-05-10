@@ -62,7 +62,7 @@ export const actions: Actions = {
 			};
 		}
 
-		const maxFile: IPatcher = file;
+		const maxFile: IPatcher = file!;
 		const uiFile = JSON.parse(JSON.stringify({ value: { ui: maxFile.desc.parameters } }));
 
 		try {

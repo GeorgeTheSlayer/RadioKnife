@@ -6,9 +6,9 @@
 	export let uiPatcher: IParameterDescription[];
 </script>
 
-<div class=" flex h-full w-full flex-col justify-center  bg-pastel-p">
+<div class="ml-auto mr-auto max-h-full max-w-full overflow-hidden bg-pastel-p p-4">
 	<div class="text-center text-2xl">{title}</div>
-	<div class="mt-4 grid grid-cols-4">
+	<div class="max-w-fit mt-4 grid grid-cols-4 gap-2">
 		{#each uiPatcher as parameter}
 			{#if parameter.visible}
 				<Knob param={parameter} />

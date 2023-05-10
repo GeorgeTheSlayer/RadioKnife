@@ -15,9 +15,9 @@
 	<title>RadioKnife</title>
 </svelte:head>
 
-<div class="mt-9 flex h-screen w-screen justify-center">
-	<div class="max-w-1/3 ml-2 hidden w-2/5 flex-col md:block ">
-		<div class=" align-center flex gap-x-2 border-b-2 border-pastel-b pb-1">
+<div class="mt-9 w-full md:flex ">
+	<div class="hidden w-1/4 max-w-sm flex-col px-4 md:block ">
+		<div class=" align-center  flex gap-x-2 border-b-2 border-pastel-b pb-1">
 			<h2 class="font-bold">
 				Sort By: <select
 					class="overflow-x-auto border-2 border-pastel-b text-center hover:bg-pastel-c"
@@ -29,15 +29,15 @@
 				</select>
 			</h2>
 		</div>
-		<div class="border-b-2 border-pastel-b pb-4">
+		<!-- <div class="border-b-2 border-pastel-b pb-4">
 			<div class="mt-4 flex justify-between">
 				<h2 class="font-bold">Categories:</h2>
 				<Chevron bind:isExpanded={isCatsOpen} />
 			</div>
 			{#if isCatsOpen}
-				<div transition:slide|local class="justify-normal grid w-fit grid-cols-2 gap-y-1 ">
-					<input type="checkbox" id="cat1" name="cat1" value="Synth" />
-					<label class="hover:bg-pastel-p" for="cat1">
+				<div transition:slide|local class="justify-normal w-fit grid grid-cols-2 gap-y-1 ">
+					<input class="w-fit" type="checkbox" id="cat1" name="cat1" value="Synth" />
+					<label class="w-fit hover:bg-pastel-p" for="cat1">
 						Additive <span class="opacity-50">(10)</span></label
 					>
 					<input type="checkbox" id="cat2" name="cat2" value="Synth" />
@@ -62,30 +62,32 @@
 					>
 				</div>
 			{/if}
-		</div>
+		</div> -->
 		<div class="border-b-2 border-pastel-b pb-4">
 			<div class="mt-4 flex justify-between">
 				<h2 class="font-bold">Manufacturer:</h2>
 				<Chevron bind:isExpanded={isManOpen} />
 			</div>
 			{#if isManOpen}
-				<div transition:slide|local class="justify-normal grid w-fit grid-cols-2 gap-y-1 truncate">
+				<div transition:slide|local class="">
 					{#each profiles as profile}
-						<input type="checkbox" id={profile.name} name="cat1" value="Synth" />
-						<label for={profile.name}>
-							{profile.name}
-							<span class="opacity-50">{'(' + profile._count.SynthProfile + ')'}</span></label
-						>
+						<div>
+							<input class="w-fit" type="checkbox" id={profile.name} name="cat1" value="Synth" />
+							<label class="w-fit" for={profile.name}>
+								{profile.name}
+								<span class="opacity-50">{'(' + profile._count.SynthProfile + ')'}</span></label
+							>
+						</div>
 					{/each}
 				</div>
 			{/if}
 		</div>
 	</div>
 	<div
-		class="mt-2 grid h-full w-full justify-center gap-8 align-middle md:m-auto md:mx-12 md:auto-cols-fr lg:auto-rows-fr lg:grid-cols-2 xl:grid-cols-3"
+		class="mx-auto mt-2 grid w-3/4 max-w-full grid-cols-1 justify-center gap-8  p-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 "
 	>
 		{#each data.synths as synth}
-			<div class="h-full w-full">
+			<div class=" h-full max-h-full w-full max-w-sm">
 				<Card cardSynth={synth} />
 			</div>
 		{/each}

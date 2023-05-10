@@ -1,8 +1,8 @@
 <script lang="ts">
-	export let value = 0;
+	export const value = 0;
 </script>
 
-<div class="flex h-fit w-fit flex-col text-sm">
+<div class="h-fit w-fit flex flex-col text-sm">
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
 		class="icon icon-tabler icon-tabler-eye"

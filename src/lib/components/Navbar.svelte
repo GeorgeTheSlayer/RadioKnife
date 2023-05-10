@@ -50,7 +50,7 @@
 	/>
 </svelte:head>
 
-<div class="block w-screen justify-evenly border-b-2 border-b-black md:flex">
+<div class="block w-screen justify-evenly border-b-2 border-black md:flex">
 	<div class="max-w-1/3 hidden md:block md:w-1/6" />
 	<ul class="flex h-full w-full flex-nowrap items-center justify-evenly text-center md:w-2/3">
 		<li class=" rounded hover:bg-pastel-p ">
@@ -61,10 +61,11 @@
 					<span class="material-symbols-outlined md-36"> search </span>
 				{/if}
 			</button>
-			<a class="hidden md:block" href="/docs"><h2>Learn</h2></a>
+			<a class="hidden md:block" href="https://Hollandsersen.com/posts/radioknife"><h2>About</h2></a
+			>
 		</li>
 		<li class="h-fit w-fit rounded hover:bg-pastel-p ">
-			<a href="/home"><h1 class="text-5xl font-bold">RadioKnife</h1></a>
+			<a data-sveltekit-reload href="/home"><h1 class="text-5xl font-bold">RadioKnife</h1></a>
 		</li>
 		<li class="rounded hover:bg-pastel-p">
 			<button class="block md:hidden" on:click={flipper}>
@@ -74,10 +75,10 @@
 					<span class="material-symbols-outlined md-36"> menu </span>
 				{/if}
 			</button>
-			<a class="hidden md:block" href="/synth/create"><h2>Create</h2></a>
+			<a data-sveltekit-reload class="hidden md:block" href="/synth/create"><h2>Create</h2></a>
 		</li>
 	</ul>
-	<ul class=" ml-auto hidden w-fit grow-0 items-center gap-x-2 pr-4 md:flex">
+	<ul class=" w-fit ml-auto hidden grow-0 items-center gap-x-2 pr-4 md:flex">
 		<li class=" flex rounded hover:bg-pastel-p">
 			{#if isSearch}
 				<div transition:slide|local class="flex h-full w-full border-4 border-black text-primary-b">
@@ -94,7 +95,9 @@
 			</button>
 		</li>
 		<li class=" rounded hover:bg-pastel-p">
-			<a href="/forum" class=""><span class="material-symbols-outlined md-36"> forum </span></a>
+			<a data-sveltekit-reload href="/forum" class=""
+				><span class="material-symbols-outlined md-36"> forum </span></a
+			>
 		</li>
 		<li class=" rounded hover:bg-pastel-p">
 			{#if $user}

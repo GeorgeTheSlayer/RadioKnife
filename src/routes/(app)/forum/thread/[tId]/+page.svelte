@@ -2,17 +2,18 @@
 	//import type { PageData } from './$types';
 	import CommentCard from '$lib/components/CommentCard.svelte';
 	import type { Comment, Thread } from '@prisma/client';
+	import type { extendedComment } from '$lib/scripts/CommentTree';
 	//import { enhance } from '$app/forms';
 	import { CommentTree } from '$lib/scripts/CommentTree';
 	//import Editor from '@tinymce/tinymce-svelte';
 	/** @type {import('./$types').PageData} */
 	export let data;
 
-	const allComments: Comment[] = data.posts as const;
+	const allComments: extendedComment[] = data.posts;
 
 	const commentGraph = CommentTree.buildCommentGraph(allComments);
 
-	const threads: Thread = data.thread as const;
+	const threads: Thread = data.thread;
 
 	const apiKey = 'ama8nrb3pwnvsiap1exjga2ja1aktl54cmbr8ose8spgeh2m';
 	let conf = {

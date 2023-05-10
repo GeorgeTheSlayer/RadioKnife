@@ -6,7 +6,8 @@
 	const displayName = data.name;
 
 	const user = getUser();
-	let patcher = undefined;
+
+	let patcher: any = undefined;
 
 	// const loadPatcher = async () => {};
 </script>
@@ -25,7 +26,7 @@
 					type="text"
 					name="title"
 					id="title"
-					class="focus:shadow-outline w-full appearance-none border-2 border-pastel-b px-3 py-2 text-sm leading-tight  shadow focus:outline-none"
+					class="focus:shadow-outline focus:outline-none w-full appearance-none border-2 border-pastel-b px-3 py-2 text-sm  leading-tight shadow"
 				/>
 			</div>
 			<div class="mb-4">
@@ -34,7 +35,7 @@
 					type="text"
 					name="content"
 					id="content"
-					class="focus:shadow-outline w-full appearance-none rounded border-2 border-pastel-b px-3 py-2 text-sm leading-tight shadow focus:outline-none"
+					class="focus:shadow-outline focus:outline-none w-full appearance-none rounded border-2 border-pastel-b px-3 py-2 text-sm leading-tight shadow"
 				/>
 			</div>
 			<div class="mb-4">
