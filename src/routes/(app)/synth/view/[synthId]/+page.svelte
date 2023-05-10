@@ -1,7 +1,7 @@
 <script lang="ts">
 	import MaxSynth from '$lib/components/MaxSynth.svelte';
 	import { browser } from '$app/environment';
-	import { afterNavigate, beforeNavigate } from '$app/navigation';
+	// import { afterNavigate, beforeNavigate } from '$app/navigation';
 	// import { page } from '$app/stores';
 	// import StarRating from '$lib/components/StarRating.svelte';
 	import Chevron from '$lib/components/Chevron.svelte';
