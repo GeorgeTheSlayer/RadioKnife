@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { beforeNavigate } from '$app/navigation';
+	import { Howl, Howler } from 'howler';
 	import {
 		createDevice,
 		type IPatcher,
@@ -38,6 +39,11 @@
 			setup();
 		}
 	};
+
+	const testTone = new Howl({
+		src: ['/sounds/bongo.mp3'],
+		onend: playNow
+	});
 
 	export const setup = async () => {
 		//console.log(MAXPATCH);
@@ -98,7 +104,7 @@
 	{#if isSetup}
 		<div class="h-full border-2 border-pastel-b bg-pastel-p shadow-2xl">
 			<h1 class=" text-center">{title}</h1>
-			<div class=" align-center grid  grid-cols-4 justify-items-center gap-4">
+			<div class=" align-center grid w-3/4  grid-cols-4 justify-items-center gap-4 p-4">
 				{#if canEdit}
 					<!-- <section use:dndzone={{ params }} on:consider={handleSort} on:finalize={handleSort}>
 						{#each params as pam (pam.index)}
@@ -130,7 +136,7 @@
 		>
 			<button
 				class="focus:shadow-outline focus:outline-none mt-4 border-2 border-pastel-b bg-pastel-w py-2 px-4  font-bold hover:bg-pastel-c"
-				on:click={setup}>Start the Sound</button
+				on:click={() => testTone.play()}>Start the Sound</button
 			>
 		</div>
 	{/if}

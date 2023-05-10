@@ -172,7 +172,7 @@
 		</div>
 	</div>
 </div>
-<div class="mx-4 -mt-80">
+<div class="mx-4 -mt-48">
 	<div class="border-b-2 border-pastel-b p-4 pb-1">
 		<h2 class="text-center font-bold">RELATED UNITS</h2>
 	</div>
