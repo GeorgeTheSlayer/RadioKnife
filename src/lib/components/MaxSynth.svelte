@@ -19,10 +19,30 @@
 	import type ImageSynth from './ImageSynth.svelte';
 
 	//Various inputs
-	// let WAContext = window.AudioContext || window.webkitAudioContext;
-	// let context = new WAContext();
-	let context: AudioContext | undefined = undefined;
+	let WAContext = window.AudioContext || window.webkitAudioContext;
+	let context = new WAContext();
+	// let context: AudioContext | undefined = undefined;
 	export let patcher: IPatcher | undefined = undefined;
+
+	if (context.state === 'suspended' && 'ontouchstart' in window) {
+		// Unlock it
+		context.resume();
+		// var unlock = function () {
+		// 	context.resume().then(function () {
+		// 		document.body.removeEventListener('touchstart', unlock);
+		// 		document.body.removeEventListener('touchend', unlock);
+		// 	});
+		// };
+		let unlock = () => {
+			context.resume().then(function () {
+				document.body.removeEventListener('touchstart', unlock);
+				document.body.removeEventListener('touchend', unlock);
+			});
+		};
+
+		document.body.addEventListener('touchstart', unlock, false);
+		document.body.addEventListener('touchend', unlock, false);
+	}
 
 	let device: Device;
 	export let isSetup = false;
@@ -47,9 +67,6 @@
 	});
 
 	export const setup = async () => {
-		let one = 1;
-		const WAContext = window.AudioContext || window.webkitAudioContext;
-		context = new WAContext();
 		//console.log(MAXPATCH);
 		// WebMidi.enable()
 		// 	.then(onEnabled)
