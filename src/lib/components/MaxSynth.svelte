@@ -13,14 +13,15 @@
 	//import type { Synth } from '@prisma/client';
 	//import { flip } from 'svelte/animate';
 	// import { browser } from '$app/environment';
-	import { dndzone } from 'svelte-dnd-action';
+	//import { dndzone } from 'svelte-dnd-action';
 	import Knobbies from './Knobbies.svelte';
-	import { onDestroy } from 'svelte';
+	//import { onDestroy } from 'svelte';
 	import type ImageSynth from './ImageSynth.svelte';
 
 	//Various inputs
-	let WAContext = window.AudioContext || window.webkitAudioContext;
-	let context = new WAContext();
+	// let WAContext = window.AudioContext || window.webkitAudioContext;
+	// let context = new WAContext();
+	let context: AudioContext | undefined = undefined;
 	export let patcher: IPatcher | undefined = undefined;
 
 	let device: Device;
@@ -46,6 +47,9 @@
 	});
 
 	export const setup = async () => {
+		let one = 1;
+		const WAContext = window.AudioContext || window.webkitAudioContext;
+		context = new WAContext();
 		//console.log(MAXPATCH);
 		// WebMidi.enable()
 		// 	.then(onEnabled)
@@ -100,11 +104,11 @@
 	// });
 </script>
 
-<div class="h-full bg-pastel-w ">
+<div class="h-full bg-pastel-w">
 	{#if isSetup}
 		<div class="h-full border-2 border-pastel-b bg-pastel-p shadow-2xl">
 			<h1 class=" text-center">{title}</h1>
-			<div class=" align-center grid w-3/4  grid-cols-4 justify-items-center gap-4 p-4">
+			<div class=" align-center grid w-3/4 grid-cols-4 justify-items-center gap-4 p-4">
 				{#if canEdit}
 					<!-- <section use:dndzone={{ params }} on:consider={handleSort} on:finalize={handleSort}>
 						{#each params as pam (pam.index)}
@@ -135,7 +139,7 @@
 			class=" flex h-full items-center justify-center border-2 border-pastel-b bg-pastel-p text-center"
 		>
 			<button
-				class="focus:shadow-outline focus:outline-none mt-4 border-2 border-pastel-b bg-pastel-w py-2 px-4  font-bold hover:bg-pastel-c"
+				class="focus:shadow-outline focus:outline-none mt-4 border-2 border-pastel-b bg-pastel-w px-4 py-2 font-bold hover:bg-pastel-c"
 				on:click={() => testTone.play()}>Start the Sound</button
 			>
 		</div>

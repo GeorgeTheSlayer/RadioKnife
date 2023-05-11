@@ -46,8 +46,8 @@
 
 <div class="w-max-full h-screen px-2">
 	<div class=" min-h-4/6 mt-4 flex h-4/6 flex-col gap-x-2 md:flex-row">
-		<div class="mx-auto flex h-full w-full max-w-7xl flex-col  ">
-			<div class="md:hidden ">
+		<div class="mx-auto flex h-full w-full max-w-7xl flex-col">
+			<div class="md:hidden">
 				<a href="/account/{userId}"
 					><h2 class="w-fit font-bold text-pastel-p hover:text-pastel-c">
 						{userName}
@@ -72,7 +72,7 @@
 				<div class=" pb-1"><h2 class="font-bold">Comments</h2></div>
 			</div>
 		</div>
-		<div class="mr-auto hidden w-full max-w-md flex-col px-2 md:block ">
+		<div class="mr-auto hidden w-full max-w-md flex-col px-2 md:block">
 			<a href="/account/{userId}"
 				><h2 class="w-fit font-bold text-pastel-p hover:text-pastel-c">
 					{userName}
@@ -108,7 +108,7 @@
 			<!--			</div>-->
 
 			<p>8.4kb</p>
-			<div class="mt-10 flex border-b-2 border-pastel-b pb-4 ">
+			<div class="mt-10 flex border-b-2 border-pastel-b pb-4">
 				<button
 					class="border-2 border-pastel-b bg-pastel-p px-10 hover:bg-pastel-c hover:text-primary-w"
 					>Play Now</button
@@ -177,7 +177,7 @@
 		<h2 class="text-center font-bold">RELATED UNITS</h2>
 	</div>
 	<div
-		class="mt-4 grid h-2/5 w-full grid-cols-1 justify-evenly gap-y-4 gap-x-20 overflow-hidden p-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+		class="mt-4 grid h-2/5 w-full grid-cols-1 justify-evenly gap-x-20 gap-y-4 overflow-hidden p-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
 	>
 		{#each data.recs as synth}
 			<div class="">
