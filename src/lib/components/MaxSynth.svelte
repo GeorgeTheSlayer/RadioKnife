@@ -27,12 +27,6 @@
 	if (context.state === 'suspended' && 'ontouchstart' in window) {
 		// Unlock it
 		context.resume();
-		// var unlock = function () {
-		// 	context.resume().then(function () {
-		// 		document.body.removeEventListener('touchstart', unlock);
-		// 		document.body.removeEventListener('touchend', unlock);
-		// 	});
-		// };
 		let unlock = () => {
 			context.resume().then(function () {
 				document.body.removeEventListener('touchstart', unlock);
@@ -50,6 +44,10 @@
 	export let title: string | undefined = '';
 	export const SynthPreview: ImageSynth | undefined = undefined;
 	let params: Parameter[] = [];
+	let paramLength = 0;
+	const gridCol = ['grid-cols-'];
+	let gridColNum = '0';
+	const gridrows = ['grid-rows-'];
 
 	// let Inputs: string[] = [];
 	// let currentInput = '';
@@ -92,6 +90,24 @@
 				console.log('Loaded Preset 0');
 			}
 			params = device.parameters;
+			paramLength = params.length;
+			console.log(paramLength);
+			console.log(paramLength % 4);
+
+			if (paramLength < 4) {
+				if (paramLength % 4 == 0) {
+					gridColNum = '4';
+				} else if (paramLength % 3 == 0) {
+					gridColNum = '3';
+				} else if (paramLength % 2 == 0) {
+					gridColNum = '2';
+				} else {
+					gridColNum = '1';
+				}
+			} else {
+				gridColNum = '4';
+			}
+
 			context.resume();
 		}
 
@@ -124,8 +140,8 @@
 <div class="h-full bg-pastel-w">
 	{#if isSetup}
 		<div class="h-full border-2 border-pastel-b bg-pastel-p shadow-2xl">
-			<h1 class=" text-center">{title}</h1>
-			<div class=" align-center grid w-3/4 grid-cols-4 justify-items-center gap-4 p-4">
+			<h1 class="hidden text-center md:block">{title}</h1>
+			<div class=" align-center grid w-3/4 grid-cols-2 justify-items-center gap-4 p-4">
 				{#if canEdit}
 					<!-- <section use:dndzone={{ params }} on:consider={handleSort} on:finalize={handleSort}>
 						{#each params as pam (pam.index)}
