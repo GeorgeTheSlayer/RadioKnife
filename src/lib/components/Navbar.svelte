@@ -53,7 +53,7 @@
 <div class="block w-screen justify-evenly border-b-2 border-black md:flex">
 	<div class="max-w-1/3 hidden md:block md:w-1/6" />
 	<ul class="flex h-full w-full flex-nowrap items-center justify-evenly text-center md:w-2/3">
-		<li class=" rounded hover:bg-pastel-p ">
+		<li class=" rounded hover:bg-pastel-p">
 			<button class="block md:hidden" on:click={flipSearch}>
 				{#if isSearch}
 					<span class="material-symbols-outlined md-36"> close </span>
@@ -64,7 +64,7 @@
 			<a class="hidden md:block" href="https://Hollandsersen.com/posts/radioknife"><h2>About</h2></a
 			>
 		</li>
-		<li class="h-fit w-fit rounded hover:bg-pastel-p ">
+		<li class="h-fit w-fit rounded hover:bg-pastel-p">
 			<a data-sveltekit-reload href="/home"><h1 class="text-5xl font-bold">RadioKnife</h1></a>
 		</li>
 		<li class="rounded hover:bg-pastel-p">
@@ -123,10 +123,12 @@
 						<a href={'/account?id=' + userId}><h1>Account</h1></a>
 					</li>
 				{:else}
-					<li class="hover:bg-pastel-p "><a href="/login"><h1>Login</h1></a></li>
+					<li class="hover:bg-pastel-p"><a href="/login"><h1>Login</h1></a></li>
 				{/if}
 				<li class="hover:bg-pastel-p"><a href="/forum"><h1>Forum</h1></a></li>
-				<li class="hover:bg-pastel-p"><a class="" href="/docs"><h1>Learn</h1></a></li>
+				<li class="hover:bg-pastel-p">
+					<a class="" href="https://Hollandsersen.com/posts/radioknife"><h1>About</h1></a>
+				</li>
 			</ul>
 		</div>
 	{/if}

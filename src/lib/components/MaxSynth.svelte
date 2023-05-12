@@ -141,7 +141,7 @@
 	{#if isSetup}
 		<div class="h-full border-2 border-pastel-b bg-pastel-p shadow-2xl">
 			<h1 class="hidden text-center md:block">{title}</h1>
-			<div class=" align-center grid w-3/4 grid-cols-2 justify-items-center gap-4 p-4">
+			<div class=" align-center grid w-3/4 grid-cols-4 justify-items-center gap-4 p-4">
 				{#if canEdit}
 					<!-- <section use:dndzone={{ params }} on:consider={handleSort} on:finalize={handleSort}>
 						{#each params as pam (pam.index)}
